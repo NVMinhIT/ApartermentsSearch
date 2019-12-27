@@ -114,6 +114,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney: LatLng = LatLng((-34).toDouble(), 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(13f), 2000, null)
         // geocoder = Geocoder(this@DetailRoomActivity)
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isZoomGesturesEnabled = true
