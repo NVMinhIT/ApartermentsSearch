@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Apartments Search</string>
-<<<<<<< HEAD
     <string name="textDurationExample">3 nights stay</string>
     <string name="textButtonApply">Apply</string>
     <string name="textDateExample">Thu, Mar 28</string>
@@ -12,7 +11,6 @@
     <string name="textNearby">Nearby</string>
     <string name="textHighestRate">Highest Rate</string>
     <string name="textBestOffer">Best Offer</string>
-=======
     <string name="london_uk">London UK</string>
     <string name="guest">2 guests</string>
     <string name="_4_3">4.3</string>
@@ -67,6 +65,5 @@
         <item>SS</item>
 
     </string-array>
->>>>>>> add deatail
     <string name="title_activity_maps">Map</string>
 </resources>
