@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    size image -->
+    <dimen name="size_normal_width">330dp</dimen>
+    <dimen name="size_normal_height">150dp</dimen>
+    <dimen name="size_text">40dp</dimen>
+    <!--text size-->
+    <dimen name="text_small_min">10sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_x_small">14sp</dimen>
+    <dimen name="text_xx_small">15sp</dimen>
+    <dimen name="text_normal">16sp</dimen>
+    <dimen name="text_x_normal">18sp</dimen>
+    <dimen name="text_large">24sp</dimen>
+    <!--button size-->
+    <dimen name="button_xnormal_width">105dp</dimen>
+    <dimen name="button_xxnormal_width">125dp</dimen>
+    <dimen name="button_xheight">42dp</dimen>
+    <dimen name="button_width">145dp</dimen>
+    <dimen name="button_xwidth">180dp</dimen>
+    <dimen name="button_height">32dp</dimen>
+    <dimen name="button_normal_width">85dp</dimen>
+    <dimen name="button_large_width">285dp</dimen>
+    <dimen name="button_normal">100dp</dimen>
+    <dimen name="button_min_height">6dp</dimen>
+    <dimen name="button_max">180dp</dimen>
+
+    <!--size icon-->
+    <dimen name="icon_small">15dp</dimen>
+    <dimen name="icon_x_small">20dp</dimen>
+    <dimen name="icon_xx_small">24dp</dimen>
+    <dimen name="icon_large">32dp</dimen>
+    <!--size layout-->
+    <dimen name="layout_width_small">25dp</dimen>
+    <dimen name="layout_height_small">30dp</dimen>
+    <dimen name="layout_width_normal">285dp</dimen>
+    <dimen name="layout_height_normal">46dp</dimen>
+    <dimen name="layout_height_xnormal">98dp</dimen>
+    <dimen name="layout_height_max">150dp</dimen>
+    <dimen name="layout_width_max">325dp</dimen>
+    <dimen name="layout_height">65dp</dimen>
+    <dimen name="size_layout_text">200dp</dimen>
+    <dimen name="size_layout_text_height">32dp</dimen>
+
+
+    <!--padding-->
+
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_xx_small">22dp</dimen>
+    <dimen name="padding_x_small">10dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large_small">32dp</dimen>
+    <dimen name="padding_large_normal">35dp</dimen>
+    <dimen name="padding_large">40dp</dimen>
+    <dimen name="padding_x_large">48dp</dimen>
+    <dimen name="padding_xnormal">20dp</dimen>
+
+    <!--margin-->
+    <dimen name="margin_top_normal">20dp</dimen>
+    <dimen name="margin_top_snormal">25dp</dimen>
+    <dimen name="margin_left_normal">20dp</dimen>
+    <dimen name="margin_xxxnormal">52dp</dimen>
+    <dimen name="margin_top_min">15dp</dimen>
+    <dimen name="margin_top_xxnormal">40dp</dimen>
+    <dimen name="margin_top_xnormal">29dp</dimen>
+    <dimen name="margin_xmin">10dp</dimen>
+
+    <dimen name="margin_min">6dp</dimen>
+    <dimen name="margin_left_x_normal">45dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_top_xmin">6dp</dimen>
+    <dimen name="margin_xnormal">22dp</dimen>
+    <dimen name="margin_xxnormal">28dp</dimen>
+    <dimen name="margin_normal_small">12dp</dimen>
+    <dimen name="margin_top_large">18dp</dimen>
+    <dimen name="margin_top_xlarge">38dp</dimen>
+    <dimen name="margin_large_small">32dp</dimen>
+    <dimen name="margin_xlarge">52dp</dimen>
+    <dimen name="margin_large_max">128dp</dimen>
+    <dimen name="margin_large">40dp</dimen>
+    <dimen name="margin_max">113dp</dimen>
+
+    <dimen name="border_width">1dp</dimen>
+    <dimen name="select_button_height">48dp</dimen>
+    <dimen name="select_button_width">100dp</dimen>
+    <dimen name="calculator_dialog_width">420dp</dimen>
+    <dimen name="item_unit_height">56dp</dimen>
+    <dimen name="button_action_width">56dp</dimen>
+    <dimen name="view_dot_size">10dp</dimen>
+    <dimen name="footer_height">56dp</dimen>
+    <dimen name="logo_lite_size">86dp</dimen>
+    <dimen name="item_restaurant_type_height">48dp</dimen>
+    <dimen name="diliver_height">0.6dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="img_foward_witdh">40dp</dimen>
+    <dimen name="img_require_width">6dp</dimen>
+    <dimen name="mindp">0.5dp</dimen>
+
+    <dimen name="_size">-10</dimen>
+
+
+</resources>
