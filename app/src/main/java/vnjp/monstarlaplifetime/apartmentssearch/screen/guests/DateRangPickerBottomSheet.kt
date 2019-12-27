@@ -2,7 +2,6 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.guests
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,9 +60,5 @@ class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
             })
         }
         return d
-    }
-
-    private fun handleUserExit() {
-
     }
 }

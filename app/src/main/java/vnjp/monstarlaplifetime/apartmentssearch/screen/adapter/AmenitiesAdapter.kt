@@ -9,13 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.Amenities
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Type
 
 class AmenitiesAdapter(private val context: Context) :
     RecyclerView.Adapter<AmenitiesAdapter.MyViewHolder>() {
 
-    private var listAmenities: List<Amenities> = emptyList()
-    fun setListAmenities(list: List<Amenities>) {
+    private var listAmenities: List<String> = emptyList()
+    fun setListAmenities(list: List<String>) {
         listAmenities = list
         notifyDataSetChanged()
     }
@@ -42,12 +42,12 @@ class AmenitiesAdapter(private val context: Context) :
         private val imgIcon: ImageView = itemView.findViewById(R.id.imgIcon)
         private val tvNameAmenities: TextView = itemView.findViewById(R.id.tvNameAmenities)
 
-        fun bind(amenities: Amenities) {
+        fun bind(amenities: String) {
             Glide.with(context)
-                .load(amenities.imageAmenities)
+                .load(Type.amenitiesImage[amenities])
                 .centerCrop()
                 .into(imgIcon)
-            tvNameAmenities.text = amenities.nameAmenities
+            tvNameAmenities.text = amenities
         }
     }
 }

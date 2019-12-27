@@ -1,4 +1,4 @@
-package vnjp.monstarlaplifetime.apartmentssearch
+package vnjp.monstarlaplifetime.apartmentssearch.screen.map
 
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -22,6 +22,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import vnjp.monstarlaplifetime.apartmentssearch.R
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
 
 
 class MapsActivity : AppCompatActivity(),
@@ -109,37 +111,43 @@ class MapsActivity : AppCompatActivity(),
                 val locations: MutableList<LatLng> = ArrayList()
                 locations.add(current)
                 locations.add(LatLng(21.0124, 105.8992))
-                locations.add(LatLng(21.0110, 105.8931))
-                locations.add(LatLng(21.0055, 105.8953))
-                locations.add(LatLng(20.9788, 105.9600))
-                locations.add(LatLng(21.0014, 105.8984))
+                locations.add(LatLng(21.0290, 105.8493))
+                locations.add(LatLng(21.0294, 105.8483))
+                locations.add(LatLng(21.0286, 105.8482))
+                locations.add(LatLng(21.0283, 105.8489))
                 for (latLng in locations) {
                     mMap.addMarker(
                         MarkerOptions()
                             .position(latLng)
                             .icon(BitmapDescriptorFactory.fromBitmap(createMarker(R.layout.layout_map_marker)))
-                    ).tag = "test"
+                    ).tag = "room"
                 }
 
                 val builder = LatLngBounds.Builder()
                 builder.include(locations[0]) //điểm A
-
+                Util.calculationByDistance(locations[0], locations[locations.size - 1])
                 builder.include(locations[locations.size - 1]) //điểm B
 
                 val bounds = builder.build()
                 val cu = CameraUpdateFactory.newLatLngBounds(bounds, 200)
                 mMap.moveCamera(cu)
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(13f), 2000, null)
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(17f), 2000, null)
             }
         }
 
         mMap.setOnMarkerClickListener {
             val t: String = it.tag as String
-            if (t == "test") {
+            if (t == "room") {
                 if (currentMarker == null) {
                     currentMarker = it
                 } else {
-                    currentMarker!!.setIcon(BitmapDescriptorFactory.fromBitmap(createMarker(R.layout.layout_map_marker)))
+                    currentMarker!!.setIcon(
+                        BitmapDescriptorFactory.fromBitmap(
+                            createMarker(
+                                R.layout.layout_map_marker
+                            )
+                        )
+                    )
                 }
                 it.setIcon(BitmapDescriptorFactory.fromBitmap(createMarker(R.layout.layout_map_marker_selected)))
                 cardRoomReview.visibility = View.VISIBLE

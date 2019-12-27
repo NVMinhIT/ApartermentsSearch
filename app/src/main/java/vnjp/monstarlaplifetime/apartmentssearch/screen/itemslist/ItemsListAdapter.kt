@@ -62,10 +62,10 @@ class ItemsListAdapter(private val context: Context, private val onClickItem: (I
                 .load(R.drawable.room)
                 .centerCrop()
                 .into(imgRoom)
-            tvAccountRating.text = room.accountRating.toString()
-            tvAccountComment.text = room.accountComment.toString()
-            tvNameRoom.text = room.nameRoom
-            tvPriceRoom.text = room.priceRoom.toString()
+            tvAccountRating.text = room.comments?.total.toString()
+            tvAccountComment.text = room.comments?.total.toString()
+            tvNameRoom.text = room.name
+            tvPriceRoom.text = room.price.toString()
 
         }
     }
