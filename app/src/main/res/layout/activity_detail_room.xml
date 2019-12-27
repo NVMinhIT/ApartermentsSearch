@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/AppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/htab_collapse_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/room"
+                tools:ignore="ContentDescription" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="top"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/myTheme.ActionBar.Text" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_layout_constrainlayout"
+        android:clipToPadding="false"
+
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <!--        android:layout_marginTop="@dimen/_size"
+          android:fillViewport="true"
+        -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <TextView
+                android:id="@+id/tvNameRoomDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:text="@string/cozy_victorian_apartment_in_islington"
+                android:textColor="#333333"
+                android:textSize="@dimen/text_x_normal"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/imgAddress"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgAddress"
+                android:layout_width="@dimen/icon_small"
+                android:layout_height="@dimen/icon_small"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_normal_small"
+                android:src="@drawable/ic_feather_map_pin"
+                app:layout_constraintBottom_toTopOf="@+id/tvAddress"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameRoomDetail"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="@dimen/size_layout_text"
+                android:layout_height="@dimen/size_layout_text_height"
+                android:layout_marginStart="@dimen/margin_min"
+                android:layout_marginLeft="@dimen/margin_min"
+                android:layout_marginTop="@dimen/margin_xmin"
+                android:gravity="start"
+                android:text="@string/_28_great_sutton_st_clerkenwell_london_ec1v_0ds"
+                android:textSize="@dimen/text_x_small"
+                app:layout_constraintLeft_toRightOf="@+id/imgAddress"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameRoomDetail" />
+
+            <LinearLayout
+                android:id="@+id/contentReview"
+                android:layout_width="@dimen/button_xwidth"
+                android:layout_height="@dimen/button_xheight"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_xnormal"
+                android:background="@drawable/bg_button_review"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/tvDescription"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddress">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/padding_xx_small"
+                    android:layout_marginLeft="@dimen/padding_xx_small"
+                    android:src="@drawable/ic_feather_message_circle"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:text="@string/_12"
+                    android:textSize="@dimen/text_x_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:text="@string/reviews"
+                    android:textSize="@dimen/text_x_normal"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="@dimen/button_xwidth"
+                android:layout_height="@dimen/button_xheight"
+                android:layout_marginTop="@dimen/margin_xnormal"
+                android:layout_marginEnd="@dimen/margin_left_normal"
+                android:layout_marginRight="@dimen/margin_left_normal"
+                android:background="@drawable/bg_button_rating"
+                android:orientation="horizontal"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddress">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/padding_xx_small"
+                    android:layout_marginLeft="@dimen/padding_xx_small"
+                    android:src="@drawable/ic_feather_star"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:text="@string/_12"
+                    android:textSize="@dimen/text_x_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:text="@string/avg_rating"
+                    android:textSize="@dimen/text_x_normal"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_left_normal"
+                android:layout_marginEnd="@dimen/margin_left_normal"
+                android:text="@string/description_room"
+                android:textColor="#333333"
+                android:textSize="@dimen/text_x_small"
+                app:layout_constraintBottom_toTopOf="@+id/tvAmenities"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contentReview"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvAmenities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:text="@string/amenities"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_x_small"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/rvListAmenities"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListAmenities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_xmin"
+                android:layout_marginEnd="@dimen/margin_left_normal"
+                app:layout_constraintBottom_toTopOf="@+id/tvNearby"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAmenities"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvNearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_left_normal"
+                android:text="@string/nearby_landmarks"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_x_small"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/RelativeLayoutOne"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvListAmenities" />
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xmin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNearby">
+
+                <ImageView
+                    android:id="@+id/imgTick"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="@dimen/margin_left_normal"
+                    android:layout_marginLeft="@dimen/margin_left_normal"
+                    android:src="@drawable/ic_feather_check"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toEndOf="@+id/imgTick"
+                    android:layout_toRightOf="@+id/imgTick"
+                    android:text="@string/columbia_road_flower_market"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvMi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_marginEnd="@dimen/margin_left_normal"
+                    android:layout_marginRight="@dimen/margin_left_normal"
+                    android:text="@string/mi"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvAccountMi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toStartOf="@+id/tvMi"
+                    android:layout_toLeftOf="@+id/tvMi"
+                    android:text="@string/_0_5"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xmin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutOne">
+
+                <ImageView
+                    android:id="@+id/imgTickTwo"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
+                    android:layout_marginStart="@dimen/margin_left_normal"
+                    android:layout_marginLeft="@dimen/margin_left_normal"
+                    android:src="@drawable/ic_feather_check"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toEndOf="@+id/imgTickTwo"
+                    android:layout_toRightOf="@+id/imgTickTwo"
+                    android:text="@string/columbia_road_flower_market"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvMiTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_marginEnd="@dimen/margin_left_normal"
+                    android:layout_marginRight="@dimen/margin_left_normal"
+                    android:text="@string/mi"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvAccountMiTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toStartOf="@+id/tvMiTwo"
+                    android:layout_toLeftOf="@+id/tvMiTwo"
+                    android:text="@string/_0_5"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xmin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutTwo">
+
+                <ImageView
+                    android:id="@+id/imgTickThree"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
+                    android:layout_marginStart="@dimen/margin_left_normal"
+                    android:layout_marginLeft="@dimen/margin_left_normal"
+                    android:src="@drawable/ic_feather_check"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toEndOf="@+id/imgTickThree"
+                    android:layout_toRightOf="@+id/imgTickThree"
+                    android:text="@string/columbia_road_flower_market"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvMiThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_marginEnd="@dimen/margin_left_normal"
+                    android:layout_marginRight="@dimen/margin_left_normal"
+                    android:text="@string/mi"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvAccountMiThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toStartOf="@+id/tvMiThree"
+                    android:layout_toLeftOf="@+id/tvMiThree"
+                    android:text="@string/_0_5"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutFour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xmin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutThree">
+
+                <ImageView
+                    android:id="@+id/imgTickFour"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
+                    android:layout_marginStart="@dimen/margin_left_normal"
+                    android:layout_marginLeft="@dimen/margin_left_normal"
+                    android:src="@drawable/ic_feather_check"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toEndOf="@+id/imgTickFour"
+                    android:layout_toRightOf="@+id/imgTickFour"
+                    android:text="@string/columbia_road_flower_market"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvMiFours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/margin_left_normal"
+                    android:layout_marginRight="@dimen/margin_left_normal"
+                    android:text="@string/mi"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvAccountMiFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_toStartOf="@+id/tvMiFours"
+                    android:layout_toLeftOf="@+id/tvMiFours"
+                    android:text="@string/_0_5"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutFive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xmin"
+                app:layout_constraintBottom_toTopOf="@+id/tvLocation"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutFour">
+
+                <ImageView
+                    android:id="@+id/imgTickFive"
+                    android:layout_width="@dimen/icon_small"
+                    android:layout_height="@dimen/icon_small"
+                    android:layout_marginStart="@dimen/margin_left_normal"
+                    android:layout_marginLeft="@dimen/margin_left_normal"
+                    android:src="@drawable/ic_feather_check"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="@dimen/margin_min"
+                    android:layout_marginLeft="@dimen/margin_min"
+                    android:layout_toEndOf="@+id/imgTickFive"
+                    android:layout_toRightOf="@+id/imgTickFive"
+                    android:text="@string/columbia_road_flower_market"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvFives"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="@dimen/margin_left_normal"
+                    android:layout_marginRight="@dimen/margin_left_normal"
+                    android:text="@string/mi"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small" />
+
+                <TextView
+                    android:id="@+id/tvAccountMiFive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="@dimen/margin_min"
+                    android:layout_marginRight="@dimen/margin_min"
+                    android:layout_toStartOf="@+id/tvFives"
+                    android:layout_toLeftOf="@+id/tvFives"
+                    android:text="@string/_0_5"
+                    android:textColor="#9fa5b4"
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_left_normal"
+                android:text="@string/location"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_x_small"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvAddressMap"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutFive" />
+
+            <TextView
+                android:id="@+id/tvAddressMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:text="@string/address"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_small"
+                app:layout_constraintBottom_toTopOf="@+id/map"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_xmin"
+                android:layout_marginEnd="@dimen/margin_normal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddressMap"
+
+                />
+
+            <TextView
+                android:id="@+id/tvRule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_left_normal"
+                android:text="@string/house_rules"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_x_small"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvContentRule"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/map" />
+
+            <TextView
+                android:id="@+id/tvContentRule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_min"
+                android:text="@string/rule"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_x_small"
+                app:layout_constraintBottom_toTopOf="@+id/imbRuleMore"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRule"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/imbRuleMore"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/icon_x_small"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_min"
+                android:layout_marginEnd="@dimen/margin_left_normal"
+                android:background="@drawable/bg_button_review"
+                android:src="@drawable/ic_feather_more_horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/tvCancellation"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvContentRule"
+                tools:ignore="ContentDescription"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvCancellation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_top_normal"
+                android:text="@string/cancellation"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_x_small"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvContentCancellation"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imbRuleMore" />
+
+            <TextView
+                android:id="@+id/tvContentCancellation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginLeft="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_min"
+                android:text="@string/cancelation"
+                android:textColor="#626b80"
+                android:textSize="@dimen/text_x_small"
+                app:layout_constraintBottom_toTopOf="@+id/imbCancellationMore"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCancellation"
+                tools:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/imbCancellationMore"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/icon_x_small"
+                android:layout_marginStart="@dimen/margin_left_normal"
+                android:layout_marginTop="@dimen/margin_min"
+                android:layout_marginEnd="@dimen/margin_left_normal"
+                android:background="@drawable/bg_button_review"
+                android:src="@drawable/ic_feather_more_horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/contentBookNow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvContentCancellation"
+                tools:ignore="ContentDescription"
+                tools:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/contentBookNow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_height_normal"
+                android:layout_marginStart="@dimen/layout_height_normal"
+                android:layout_marginTop="@dimen/margin_xxnormal"
+                android:layout_marginEnd="@dimen/layout_height_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:background="@drawable/bg_button_click"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imbCancellationMore">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/margin_left_normal"
+                    android:layout_marginLeft="@dimen/margin_left_normal"
+                    android:gravity="center_vertical"
+                    android:text="@string/account_stay"
+                    android:textColor="@color/color_text_hintt"
+                    android:textSize="@dimen/text_x_small"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
+
+                <Button
+                    android:layout_width="@dimen/button_max"
+                    android:layout_height="@dimen/layout_height_normal"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_button_action"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/padding_xnormal"
+                    android:paddingRight="@dimen/padding_xnormal"
+                    android:text="@string/book"
+                    android:textAlignment="textEnd"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="@dimen/text_x_normal"
+                    android:textStyle="bold"
+                    tools:ignore="RtlCompat,RtlSymmetry" />
+
+                <Button
+                    android:layout_width="76dp"
+                    android:layout_height="@dimen/layout_height_normal"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_button_dark"
+                    android:text="@string/current"
+                    android:textColor="@color/color_text_white"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

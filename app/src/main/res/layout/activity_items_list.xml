@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.itemslist.ItemsListActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentConstrainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height_xnormal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/contentRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/imbBack"
+                android:layout_width="@dimen/icon_x_small"
+                android:layout_height="@dimen/icon_x_small"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:background="@null"
+                android:src="@drawable/ic_feather_arrow_left"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xmin"
+                android:layout_marginLeft="@dimen/margin_xmin"
+                android:layout_toEndOf="@+id/imbBack"
+                android:layout_toRightOf="@+id/imbBack"
+                android:gravity="center_horizontal"
+                android:text="@string/london_uk"
+                android:textColor="@color/color_text_bold"
+                android:textSize="@dimen/text_x_normal"
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageButton
+                android:id="@+id/imbFeather"
+                android:layout_width="@dimen/icon_x_small"
+                android:layout_height="@dimen/icon_x_small"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:background="@null"
+                android:src="@drawable/ic_feather_map"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/imbFeatherBookMark"
+                android:layout_width="@dimen/icon_x_small"
+                android:layout_height="@dimen/icon_x_small"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_toStartOf="@+id/imbFeather"
+                android:layout_toLeftOf="@+id/imbFeather"
+                android:background="@null"
+                android:src="@drawable/ic_feather_bookmark"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btCalendar"
+            android:layout_width="@dimen/button_xnormal_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/margin_left_x_normal"
+            android:layout_marginLeft="@dimen/margin_left_x_normal"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_button"
+            android:text="@string/mar"
+            android:textColor="@color/color_text_blue"
+            android:textSize="@dimen/text_x_small"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contentRelativeLayout" />
+
+        <Button
+            android:id="@+id/btGuest"
+            android:layout_width="@dimen/button_normal_width"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/margin_normal_small"
+            android:layout_marginLeft="@dimen/margin_normal_small"
+            android:layout_marginTop="@dimen/margin_top_normal"
+            android:clickable="true"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_button"
+            android:text="@string/guest"
+            android:textColor="@color/color_text_blue"
+            android:textSize="@dimen/text_x_small"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/btCalendar"
+            app:layout_constraintTop_toBottomOf="@+id/contentRelativeLayout"
+            android:focusable="true" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListItems"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_top_normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contentConstrainLayout"
+
+
+        />
+
+    <RelativeLayout
+        android:layout_width="@dimen/layout_width_normal"
+        android:layout_height="@dimen/layout_height_normal"
+        android:layout_marginBottom="@dimen/margin_normal"
+        android:background="@drawable/bg_button_click"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/margin_left_normal"
+            android:layout_marginLeft="@dimen/margin_left_normal"
+            android:gravity="center_vertical"
+            android:text="@string/_48_results_found"
+            android:textColor="@color/color_text_hintt"
+            android:textSize="@dimen/text_x_small"
+            tools:ignore="RelativeOverlap" />
+
+        <Button
+            android:layout_width="@dimen/button_xxnormal_width"
+            android:layout_height="@dimen/layout_height_normal"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_button_action"
+            android:drawableStart="@drawable/ic_feather_sliders"
+            android:drawableLeft="@drawable/ic_feather_sliders"
+            android:paddingStart="35dp"
+            android:paddingLeft="@dimen/padding_large_normal"
+            android:paddingEnd="22dp"
+            android:paddingRight="@dimen/padding_xx_small"
+            android:text="@string/filter"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/text_x_normal"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

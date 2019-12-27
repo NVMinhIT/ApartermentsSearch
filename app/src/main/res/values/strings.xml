@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Apartments Search</string>
+<<<<<<< HEAD
     <string name="textDurationExample">3 nights stay</string>
     <string name="textButtonApply">Apply</string>
     <string name="textDateExample">Thu, Mar 28</string>
@@ -11,5 +12,61 @@
     <string name="textNearby">Nearby</string>
     <string name="textHighestRate">Highest Rate</string>
     <string name="textBestOffer">Best Offer</string>
+=======
+    <string name="london_uk">London UK</string>
+    <string name="guest">2 guests</string>
+    <string name="_4_3">4.3</string>
+    <string name="_48_results_found"><b>48</b> results found</string>
+    <string name="filter">Filter</string>
+    <string name="total_guests">Total guests</string>
+    <string name="_2">2</string>
+    <string name="people">People</string>
+    <string name="adults">Adults</string>
+    <string name="children">Children</string>
+    <string name="infants">Infants</string>
+    <string name="apply">Apply</string>
+    <string name="reset">Reset</string>
+    <string name="ages_2_12">Ages 2–12</string>
+    <string name="under_2">Under 2</string>
+    <string name="sunny_soho_flat">Sunny Soho Flat</string>
+    <string name="_130">$130</string>
+    <string name="per_night">per night</string>
+    <string name="heart">Heart</string>
+    <string name="share">Share</string>
+    <string name="cozy_victorian_apartment_in_islington">Cozy Victorian Apartment in Islington</string>
+    <string name="_28_great_sutton_st_clerkenwell_london_ec1v_0ds">28 Great Sutton St, Clerkenwell, London, EC1V 0DS</string>
+    <string name="_12">12</string>
+    <string name="reviews">Reviews</string>
+    <string name="avg_rating">Avg. Rating</string>
+    <string name="description_room">Slumber on a plush Eve memory foam mattress​ in the courtyard-facing bedroom of this characterful modernised period apartment. There\'s classy wooden flooring throughout while the traditional fireplace lends a cosy focal point to the living room.</string>
+    <string name="amenities">Amenities</string>
+    <string name="nearby_landmarks">Nearby landmarks</string>
+    <string name="columbia_road_flower_market">Columbia Road Flower Market</string>
+    <string name="_0_5">0.5</string>
+    <string name="mi">mi</string>
+    <string name="location">Location</string>
+    <string name="address">28 Great Sutton St, Clerkenwell, London, EC1V 0DS</string>
+    <string name="house_rules">House Rules</string>
+    <string name="rule">No pets No smoking, parties, or events Check-in is anytime after 3PM and check out by 11AM</string>
+    <string name="mar">Mar 28 – 30</string>
+    <string name="cancellation">Cancellation</string>
+    <string name="cancelation"><b>Strict</b>
+        This reservation is non-refundable because check-in is less than 7 days away.</string>
+    <string name="account_stay">3 night stay</string>
+    <string name="book">Book Now</string>
+    <string name="current">$586</string>
+
+    <string-array name="amenities_array">
+        <item>Wifi</item>
+        <item>Coffee maker</item>
+        <item>TV</item>
+        <item>Washer</item>
+        <item>Hihi</item>
+        <item>Haha</item>
+        <item>Hee</item>
+        <item>SS</item>
+
+    </string-array>
+>>>>>>> add deatail
     <string name="title_activity_maps">Map</string>
 </resources>

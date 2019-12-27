@@ -3,6 +3,23 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+<<<<<<< HEAD
     <color name="white">#FFFFFF</color>
     <color name="apply">#3165ec</color>
+=======
+
+    <color name="color_bg_button">#f0f6ff</color>
+    <color name="color_text_white">#ffffff</color>
+    <color name="color_text_bold">#333333</color>
+    <color name="color_text_blue">#3165ec</color>
+    <color name="color_text_hint">#626b80</color>
+    <color name="color_text_hintt">#626b80</color>
+    <color name="color_layout">#f5f5f7</color>
+    <color name="color_view">#E0E0E0</color>
+    <color name="color_text_hintx">#f5f5f7</color>
+    <color name="button_review">#f0f6ff</color>
+    <color name="button_rating">#fefaf2</color>
+    <color name="button_blue_dark">#0d3ebd</color>
+
+>>>>>>> add deatail
 </resources>

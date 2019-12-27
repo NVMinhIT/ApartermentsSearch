@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="@dimen/icon_large"
+        android:layout_height="@dimen/icon_large"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_feather_monitor"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgIcon"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/tvNameAmenities"
+        android:text="Coffee maker"
+        android:layout_marginTop="4dp"
+        android:textColor="#626b80"
+        android:textSize="@dimen/text_small"
+
+        />
+</RelativeLayout>
