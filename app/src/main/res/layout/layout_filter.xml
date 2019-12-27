@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/textFilters"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageClose"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/icon_x_circle"
+            app:layout_constraintBottom_toBottomOf="@id/textFilter"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textFilter" />
+
+        <FrameLayout
+            android:id="@+id/searchContainer"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/search_container_background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textFilter">
+
+            <EditText
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/hint_search"
+                android:padding="10dp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textSortResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/textSortResult"
+            android:textColor="#626b80"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/searchContainer"
+            app:layout_constraintTop_toBottomOf="@id/searchContainer" />
+
+        <TextView
+            android:id="@+id/textNearby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#f0f6ff"
+            android:drawableStart="@drawable/icon_map_pin"
+            android:drawableLeft="@drawable/icon_map_pin"
+            android:drawablePadding="5dp"
+            android:padding="10dp"
+            android:text="@string/textNearby"
+            android:textColor="#435582"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/textHighestRate"
+            app:layout_constraintTop_toBottomOf="@id/textSortResult" />
+
+        <TextView
+            android:id="@+id/textHighestRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#fefaf2"
+            android:drawableStart="@drawable/icon_star"
+            android:drawableLeft="@drawable/icon_star"
+            android:drawablePadding="5dp"
+            android:padding="10dp"
+            android:text="@string/textHighestRate"
+            android:textColor="#9c8860"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/textNearby"
+            app:layout_constraintRight_toLeftOf="@id/textBestOffer"
+            app:layout_constraintTop_toBottomOf="@id/textSortResult" />
+
+        <TextView
+            android:id="@+id/textBestOffer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="#f3fbf0"
+            android:drawableStart="@drawable/icon_star"
+            android:drawableLeft="@drawable/icon_star"
+            android:drawablePadding="5dp"
+            android:padding="10dp"
+            android:text="@string/textBestOffer"
+            android:textColor="#76966a"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/textHighestRate"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textSortResult" />
+
+        <TextView
+            android:id="@+id/textPriceRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Price Range:"
+            android:textColor="#626b80"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/textFilter"
+            app:layout_constraintTop_toBottomOf="@id/textNearby" />
+
+        <TextView
+            android:id="@+id/textPriceRangeDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="$80-180"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/textPriceRange"
+            app:layout_constraintTop_toTopOf="@id/textPriceRange" />
+
+        <TextView
+            android:id="@+id/textClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:textColor="#3165ec"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="@id/searchContainer"
+            app:layout_constraintTop_toTopOf="@id/textPriceRange" />
+
+        <TextView
+            android:id="@+id/textPriceAvg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Avg. Price: $121"
+            android:textColor="#9fa5b4"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/textPriceRange"
+            app:layout_constraintTop_toBottomOf="@id/textPriceRange" />
+
+        <com.stfalcon.pricerangebar.RangeBarWithChart
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barActiveLineColor="#6e93f1"
+            app:barActiveThumbColor="@android:color/holo_blue_light"
+            app:barActiveTickRadius="@dimen/custom_active_tick_radius"
+            app:barChartSelectedBackgroundColor="#3F51B5"
+            app:barChartUnselectedBackgroundColor="#0c6e93f1"
+            app:barLineColor="#9fa5b4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textPriceAvg" />
+
+        <TextView
+            android:id="@+id/textHomeType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Home Type"
+            android:textColor="#626b80"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/textPriceRange"
+            app:layout_constraintTop_toBottomOf="@id/seekBar" />
+
+        <CheckBox
+            android:id="@+id/checkEntirePlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3165ec"
+            app:layout_constraintLeft_toLeftOf="@id/textHomeType"
+            app:layout_constraintTop_toBottomOf="@id/textHomeType" />
+
+        <TextView
+            android:id="@+id/textEntirePlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Entire Place"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/checkEntirePlace"
+            app:layout_constraintLeft_toRightOf="@id/checkEntirePlace"
+            app:layout_constraintTop_toTopOf="@id/checkEntirePlace" />
+
+        <TextView
+            android:id="@+id/textEntirePlaceDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Have a place to yourself"
+            android:textColor="#626b80"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toRightOf="@id/checkEntirePlace"
+            app:layout_constraintTop_toBottomOf="@id/textEntirePlace" />
+
+        <CheckBox
+            android:id="@+id/checkPrivateRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3165ec"
+            app:layout_constraintLeft_toLeftOf="@id/textHomeType"
+            app:layout_constraintTop_toBottomOf="@id/textEntirePlaceDetail" />
+
+        <TextView
+            android:id="@+id/textPrivateRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Private Room"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/checkPrivateRoom"
+            app:layout_constraintLeft_toRightOf="@id/checkPrivateRoom"
+            app:layout_constraintTop_toTopOf="@id/checkPrivateRoom" />
+
+        <TextView
+            android:id="@+id/textPrivateRoomDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Have your own room and share some common spaces"
+            android:textAlignment="viewStart"
+            android:textColor="#626b80"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="@id/textPrivateRoom"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textPrivateRoom" />
+
+        <CheckBox
+            android:id="@+id/checkHotelRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3165ec"
+            app:layout_constraintLeft_toLeftOf="@id/textHomeType"
+            app:layout_constraintTop_toBottomOf="@id/textPrivateRoomDetail" />
+
+        <TextView
+            android:id="@+id/textHotelRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hotel Room"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/checkHotelRoom"
+            app:layout_constraintLeft_toRightOf="@id/checkHotelRoom"
+            app:layout_constraintTop_toTopOf="@id/checkHotelRoom" />
+
+        <TextView
+            android:id="@+id/textHotelRoomDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Have a private or shared room in a boutique hotel, hostel, and more"
+            android:textAlignment="viewStart"
+            android:textColor="#626b80"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="@id/textHotelRoom"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textHotelRoom" />
+
+        <CheckBox
+            android:id="@+id/checkShareRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3165ec"
+            app:layout_constraintLeft_toLeftOf="@id/textHomeType"
+            app:layout_constraintTop_toBottomOf="@id/textHotelRoomDetail" />
+
+        <TextView
+            android:id="@+id/textShareRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hotel Room"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/checkShareRoom"
+            app:layout_constraintLeft_toRightOf="@id/checkShareRoom"
+            app:layout_constraintTop_toTopOf="@id/checkShareRoom" />
+
+        <TextView
+            android:id="@+id/textShareRoomDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Stay in a shared space, like a common room"
+            android:textAlignment="viewStart"
+            android:textColor="#626b80"
+            android:textSize="15sp"
+            app:layout_constraintLeft_toLeftOf="@id/textShareRoom"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textShareRoom" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="285dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:elevation="15dp"
+            android:focusable="true"
+            app:cardCornerRadius="22dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textShareRoomDetail">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textApply"
+                    android:layout_width="145dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/apply_button_background"
+                    android:clickable="true"
+                    android:elevation="10dp"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Apply Filters"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textDuration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Reset"
+                    android:textAlignment="center"
+                    android:textColor="#3165ec"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/textApply"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

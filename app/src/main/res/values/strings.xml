@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Apartments Search</string>
+    <string name="textDurationExample">3 nights stay</string>
+    <string name="textButtonApply">Apply</string>
+    <string name="textDateExample">Thu, Mar 28</string>
+    <string name="textCheckIn">Check In</string>
+    <string name="textCheckOut">Check Out</string>
+    <string name="textFilters">Filters</string>
+    <string name="hint_search">Search by hotel name</string>
+    <string name="textSortResult">Sort Results</string>
+    <string name="textNearby">Nearby</string>
+    <string name="textHighestRate">Highest Rate</string>
+    <string name="textBestOffer">Best Offer</string>
 </resources>
