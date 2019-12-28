@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="440dp"
-    android:background="@color/color_text_white"
-    android:orientation="vertical">
+    android:minHeight="440dp">
 
     <Button
         android:id="@+id/btDrag"
@@ -288,7 +286,7 @@
             android:layout_marginRight="@dimen/margin_top_normal"
             android:background="@null"
             android:src="@drawable/ic_feather_plus_circle"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,RtlHardcoded" />
 
         <TextView
             android:id="@+id/tvAccountInfants"
@@ -305,7 +303,8 @@
             android:gravity="center_vertical"
             android:text="@string/_2"
             android:textAlignment="center"
-            android:textSize="@dimen/text_large" />
+            android:textSize="@dimen/text_large"
+            tools:ignore="RtlHardcoded" />
 
         <ImageButton
             android:layout_width="@dimen/icon_xx_small"
@@ -363,6 +362,6 @@
             android:textColor="@color/color_text_white"
             android:textSize="@dimen/text_x_normal"
             android:textStyle="bold"
-            tools:ignore="RtlSymmetry" />
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
