@@ -38,6 +38,7 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment() {
             var behaviour: BottomSheetBehavior<*>? = null
             if (bottomSheet != null) {
                 behaviour = BottomSheetBehavior.from(bottomSheet)
+                behaviour.state = BottomSheetBehavior.STATE_EXPANDED
             }
             behaviour?.setBottomSheetCallback(object : BottomSheetCallback() {
                 override fun onStateChanged(

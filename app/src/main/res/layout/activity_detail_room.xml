@@ -23,8 +23,11 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:background="@drawable/room"
+                android:id="@+id/imgRoomShow"
+                android:scaleType="centerCrop"
+                android:src="@drawable/anim_sllide_show"
                 tools:ignore="ContentDescription" />
+
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -32,7 +35,21 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="top"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/myTheme.ActionBar.Text" />
+                app:popupTheme="@style/myTheme.ActionBar.Text">
+
+                <TextView
+                    android:id="@+id/textToolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="abc"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/text_x_normal"
+                    android:visibility="invisible" />
+            </androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -66,7 +83,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/imgAddress"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlHardcoded" />
 
             <ImageView
                 android:id="@+id/imgAddress"
@@ -79,7 +97,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/tvAddress"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNameRoomDetail"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription,RtlHardcoded" />
 
             <TextView
                 android:id="@+id/tvAddress"
@@ -92,7 +110,8 @@
                 android:text="@string/_28_great_sutton_st_clerkenwell_london_ec1v_0ds"
                 android:textSize="@dimen/text_x_small"
                 app:layout_constraintLeft_toRightOf="@+id/imgAddress"
-                app:layout_constraintTop_toBottomOf="@+id/tvNameRoomDetail" />
+                app:layout_constraintTop_toBottomOf="@+id/tvNameRoomDetail"
+                tools:ignore="RtlHardcoded" />
 
             <LinearLayout
                 android:id="@+id/contentReview"
@@ -105,7 +124,8 @@
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@+id/tvDescription"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddress">
+                app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+                tools:ignore="RtlHardcoded">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -114,7 +134,7 @@
                     android:layout_marginStart="@dimen/padding_xx_small"
                     android:layout_marginLeft="@dimen/padding_xx_small"
                     android:src="@drawable/ic_feather_message_circle"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -147,7 +167,8 @@
                 android:background="@drawable/bg_button_rating"
                 android:orientation="horizontal"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddress">
+                app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+                tools:ignore="RtlHardcoded">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -208,7 +229,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/rvListAmenities"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+                tools:ignore="RtlHardcoded" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvListAmenities"
@@ -236,7 +258,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/RelativeLayoutOne"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvListAmenities" />
+                app:layout_constraintTop_toBottomOf="@+id/rvListAmenities"
+                tools:ignore="RtlHardcoded" />
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutOne"
@@ -256,7 +279,7 @@
                     android:layout_marginStart="@dimen/margin_left_normal"
                     android:layout_marginLeft="@dimen/margin_left_normal"
                     android:src="@drawable/ic_feather_check"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -267,7 +290,8 @@
                     android:layout_toRightOf="@+id/imgTick"
                     android:text="@string/columbia_road_flower_market"
                     android:textColor="#333333"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvMi"
@@ -281,7 +305,8 @@
                     android:layout_marginRight="@dimen/margin_left_normal"
                     android:text="@string/mi"
                     android:textColor="#9fa5b4"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvAccountMi"
@@ -294,7 +319,7 @@
                     android:text="@string/_0_5"
                     android:textColor="#9fa5b4"
                     android:textSize="@dimen/text_x_small"
-                    tools:ignore="RelativeOverlap" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -313,7 +338,7 @@
                     android:layout_marginStart="@dimen/margin_left_normal"
                     android:layout_marginLeft="@dimen/margin_left_normal"
                     android:src="@drawable/ic_feather_check"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -324,7 +349,8 @@
                     android:layout_toRightOf="@+id/imgTickTwo"
                     android:text="@string/columbia_road_flower_market"
                     android:textColor="#333333"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvMiTwo"
@@ -338,7 +364,8 @@
                     android:layout_marginRight="@dimen/margin_left_normal"
                     android:text="@string/mi"
                     android:textColor="#9fa5b4"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvAccountMiTwo"
@@ -351,7 +378,7 @@
                     android:text="@string/_0_5"
                     android:textColor="#9fa5b4"
                     android:textSize="@dimen/text_x_small"
-                    tools:ignore="RelativeOverlap" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -370,7 +397,7 @@
                     android:layout_marginStart="@dimen/margin_left_normal"
                     android:layout_marginLeft="@dimen/margin_left_normal"
                     android:src="@drawable/ic_feather_check"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -381,7 +408,8 @@
                     android:layout_toRightOf="@+id/imgTickThree"
                     android:text="@string/columbia_road_flower_market"
                     android:textColor="#333333"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvMiThree"
@@ -395,7 +423,8 @@
                     android:layout_marginRight="@dimen/margin_left_normal"
                     android:text="@string/mi"
                     android:textColor="#9fa5b4"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvAccountMiThree"
@@ -408,7 +437,7 @@
                     android:text="@string/_0_5"
                     android:textColor="#9fa5b4"
                     android:textSize="@dimen/text_x_small"
-                    tools:ignore="RelativeOverlap" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -427,7 +456,7 @@
                     android:layout_marginStart="@dimen/margin_left_normal"
                     android:layout_marginLeft="@dimen/margin_left_normal"
                     android:src="@drawable/ic_feather_check"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -438,7 +467,8 @@
                     android:layout_toRightOf="@+id/imgTickFour"
                     android:text="@string/columbia_road_flower_market"
                     android:textColor="#333333"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvMiFours"
@@ -450,7 +480,8 @@
                     android:layout_marginRight="@dimen/margin_left_normal"
                     android:text="@string/mi"
                     android:textColor="#9fa5b4"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvAccountMiFour"
@@ -465,7 +496,7 @@
                     android:text="@string/_0_5"
                     android:textColor="#9fa5b4"
                     android:textSize="@dimen/text_x_small"
-                    tools:ignore="RelativeOverlap" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -485,7 +516,7 @@
                     android:layout_marginStart="@dimen/margin_left_normal"
                     android:layout_marginLeft="@dimen/margin_left_normal"
                     android:src="@drawable/ic_feather_check"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -496,7 +527,8 @@
                     android:layout_toRightOf="@+id/imgTickFive"
                     android:text="@string/columbia_road_flower_market"
                     android:textColor="#333333"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvFives"
@@ -508,7 +540,8 @@
                     android:layout_marginRight="@dimen/margin_left_normal"
                     android:text="@string/mi"
                     android:textColor="#9fa5b4"
-                    android:textSize="@dimen/text_x_small" />
+                    android:textSize="@dimen/text_x_small"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tvAccountMiFive"
@@ -521,7 +554,7 @@
                     android:text="@string/_0_5"
                     android:textColor="#9fa5b4"
                     android:textSize="@dimen/text_x_small"
-                    tools:ignore="RelativeOverlap" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded" />
             </RelativeLayout>
 
             <TextView
@@ -537,7 +570,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvAddressMap"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutFive" />
+                app:layout_constraintTop_toBottomOf="@+id/RelativeLayoutFive"
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:id="@+id/tvAddressMap"
@@ -550,7 +584,8 @@
                 android:textSize="@dimen/text_small"
                 app:layout_constraintBottom_toTopOf="@+id/map"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+                app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+                tools:ignore="RtlHardcoded" />
 
             <fragment
                 android:id="@+id/map"
@@ -563,7 +598,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAddressMap"
-                tools:visible="true"
+                tools:visibility="gone"
 
                 />
 
@@ -580,7 +615,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvContentRule"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/map" />
+                app:layout_constraintTop_toBottomOf="@+id/map"
+                tools:ignore="RtlHardcoded" />
 
             <TextView
                 android:id="@+id/tvContentRule"
@@ -596,7 +632,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvRule"
-                tools:visibility="gone" />
+                tools:visibility="gone"
+                tools:ignore="RtlHardcoded" />
 
             <ImageButton
                 android:id="@+id/imbRuleMore"
@@ -687,7 +724,7 @@
                     android:textColor="@color/color_text_hintt"
                     android:textSize="@dimen/text_x_small"
                     android:textStyle="bold"
-                    tools:ignore="RelativeOverlap" />
+                    tools:ignore="RelativeOverlap,RtlHardcoded" />
 
                 <Button
                     android:layout_width="@dimen/button_max"
@@ -704,7 +741,7 @@
                     android:textColor="@color/color_text_white"
                     android:textSize="@dimen/text_x_normal"
                     android:textStyle="bold"
-                    tools:ignore="RtlCompat,RtlSymmetry" />
+                    tools:ignore="RtlCompat,RtlHardcoded,RtlSymmetry" />
 
                 <Button
                     android:layout_width="76dp"
