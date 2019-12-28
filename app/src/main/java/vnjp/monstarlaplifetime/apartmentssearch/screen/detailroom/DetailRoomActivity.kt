@@ -1,19 +1,22 @@
 package vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.drawable.AnimationDrawable
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +29,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
+import com.google.android.material.appbar.AppBarLayout
+import kotlinx.android.synthetic.main.activity_detail_room.*
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Amenities
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
@@ -33,8 +38,12 @@ import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
 class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     lateinit var toolbar: Toolbar
+    private lateinit var toolbarTitle: TextView
     private lateinit var geocoder: Geocoder
     private var mLastKnownLocation: Location? = null
+    private lateinit var animationDrawable: AnimationDrawable
+    private lateinit var imgRoomShow: ImageView
+
     var locations: List<LatLng> = java.util.ArrayList()
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mLocationPermissionsGranted = false
@@ -56,6 +65,11 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun initView() {
+        toolbar = findViewById(R.id.toolbar)
+        toolbarTitle = toolbar.findViewById(R.id.textToolbarTitle)
+        imgRoomShow = findViewById(R.id.imgRoomShow)
+        animationDrawable = imgRoomShow.drawable as AnimationDrawable
+        animationDrawable.start()
         mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mapFragment.getMapAsync(this@DetailRoomActivity)
@@ -67,12 +81,34 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         recyclerView.adapter = amenitiesAdapter
         val tvContentRule: TextView = findViewById(R.id.tvContentRule)
         tvContentRule.setLineSpacing(3F, 1.5f)
-        toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
         toolbar.inflateMenu(R.menu.menu_detail)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initEvent() {
+        toolbarTitle.setText("Cozy Victorian Apartment in Islington")
+        AppBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+            @SuppressLint("ResourceAsColor")
+            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State) {
+                when (state) {
+                    State.COLLAPSED -> {
+                        toolbarTitle.visibility = View.VISIBLE
+//                        supportActionBar?.setBackgroundDrawable(getDrawable(R.color.color_text_white))
+                        toolbar.setBackgroundColor(getColor(R.color.color_text_white))
+                        toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__dark)
+
+                    }
+                    else -> {
+                        toolbarTitle.visibility = View.INVISIBLE
+                        toolbar.background = null
+                        toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
+                        //toolbar.setBackgroundColor(null)
+                    }
+                }
+            }
+
+        })
         toolbar.setNavigationOnClickListener {
             finish()
         }

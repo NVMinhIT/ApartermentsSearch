@@ -2,6 +2,7 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.guests
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vnjp.monstarlaplifetime.apartmentssearch.R
+
 
 @Suppress("DEPRECATION")
 class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
@@ -38,6 +40,7 @@ class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
             var behaviour: BottomSheetBehavior<*>? = null
             if (bottomSheet != null) {
                 behaviour = BottomSheetBehavior.from(bottomSheet)
+                behaviour.state = BottomSheetBehavior.STATE_EXPANDED
             }
             behaviour?.setBottomSheetCallback(object : BottomSheetCallback() {
                 override fun onStateChanged(
