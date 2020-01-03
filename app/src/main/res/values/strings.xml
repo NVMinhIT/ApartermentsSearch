@@ -29,7 +29,7 @@
     <string name="ages_2_12">Ages 2–12</string>
     <string name="under_2">Under 2</string>
     <string name="sunny_soho_flat">Sunny Soho Flat</string>
-    <string name="_130">$130</string>
+    <string name="_130">130</string>
     <string name="per_night">per night</string>
     <string name="heart">Heart</string>
     <string name="share">Share</string>
@@ -68,6 +68,7 @@
 
     </string-array>
     <string name="title_activity_maps">Map</string>
+
     <string name="texts_sign_in_hint">Sign in to continue</string>
     <string name="text_login_welcome">Welcome Departments Search</string>
     <string name="text_register">Register</string>
@@ -76,4 +77,8 @@
     <string name="text_hint_login">Login</string>
     <string name="text_forgot_password">Forgot password?</string>
     <string name="text_name">Name</string>
+
+    <string name="dollar">$</string>
+    <string name="abc">abc</string>
+
 </resources>

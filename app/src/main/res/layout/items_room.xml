@@ -57,9 +57,11 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top_xnormal"
             android:background="@null"
+            android:id="@+id/imbLike"
             android:src="@drawable/ic_favorite_hint"
             tools:ignore="ContentDescription" />
     </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/contentImageRoom"
@@ -69,13 +71,13 @@
         android:layout_marginRight="@dimen/margin_xmin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded">
 
         <ImageView
             android:id="@+id/imgRoom"
             android:layout_width="@dimen/size_normal_width"
             android:layout_height="@dimen/layout_height_max"
-            android:background="@drawable/bg_image"
             android:scaleType="centerCrop"
             android:src="@drawable/room"
             tools:ignore="ContentDescription,MissingPrefix" />
@@ -124,5 +126,20 @@
             android:textSize="@dimen/text_small"
             android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/tvDollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvPerNight"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_toLeftOf="@+id/tvPriceRoom"
+            android:text="@string/dollar"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/text_small"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

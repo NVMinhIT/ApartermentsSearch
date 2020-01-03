@@ -19,6 +19,10 @@ import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
 import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
+
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.RoomTest
+
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.DateRangPickerBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.GuestsFragmentBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.map.MapsActivity
@@ -62,14 +66,28 @@ class ItemsListActivity : AppCompatActivity() {
         buttonOpenMap = findViewById(R.id.imbFeather)
         btCalendar = findViewById(R.id.btCalendar)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        itemsListAdapter = ItemsListAdapter(this) {
-            val intent = Intent(this, DetailRoomActivity::class.java)
-            intent.putExtra(BUNDLE_ID, itemsListAdapter.getPosition(it).id)
-            startActivity(intent)
-        }
+        itemsListAdapter = ItemsListAdapter(this)
+//        itemsListAdapter = ItemsListAdapter(this) {
+//            val intent = Intent(this, DetailRoomActivity::class.java)
+//            intent.putExtra(BUNDLE_ID, itemsListAdapter.getPosition(it).id)
+//            startActivity(intent)
+//        }
         recyclerView.adapter = itemsListAdapter
-        val room = Util.getStatisticRooms()
-        val arrayList = arrayListOf(room, room, room, room, room)
+        //val room = Util.getStatisticRooms()
+        //val arrayList = arrayListOf(room, room, room, room, room)
+        itemsListAdapter = ItemsListAdapter(this)
+        recyclerView.adapter = itemsListAdapter
+        val arrayList = arrayListOf(
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false),
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false),
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false),
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
+            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false)
+        )
+
         itemsListAdapter.setListRoom(arrayList)
     }
 
@@ -87,6 +105,7 @@ class ItemsListActivity : AppCompatActivity() {
                 DateRangPickerBottomSheet()
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.getTag())
         }
+
     }
 
 }

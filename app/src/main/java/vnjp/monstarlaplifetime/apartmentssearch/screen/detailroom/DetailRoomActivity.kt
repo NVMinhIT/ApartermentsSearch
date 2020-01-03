@@ -42,7 +42,6 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private var mLastKnownLocation: Location? = null
     private lateinit var animationDrawable: AnimationDrawable
     private lateinit var imgRoomShow: ImageView
-
     var locations: List<LatLng> = java.util.ArrayList()
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private var mLocationPermissionsGranted = false
@@ -61,8 +60,6 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         initView()
         initEvent()
     }
-
-
     private fun initView() {
         toolbar = findViewById(R.id.toolbar)
         toolbarTitle = toolbar.findViewById(R.id.textToolbarTitle)
@@ -83,7 +80,6 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
         toolbar.inflateMenu(R.menu.menu_detail)
     }
-
     @SuppressLint("SetTextI18n")
     private fun initEvent() {
         toolbarTitle.setText("Cozy Victorian Apartment in Islington")
@@ -93,16 +89,13 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
                 when (state) {
                     State.COLLAPSED -> {
                         toolbarTitle.visibility = View.VISIBLE
-//                        supportActionBar?.setBackgroundDrawable(getDrawable(R.color.color_text_white))
                         toolbar.setBackgroundColor(getColor(R.color.color_text_white))
                         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__dark)
-
                     }
                     else -> {
                         toolbarTitle.visibility = View.INVISIBLE
                         toolbar.background = null
                         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
-                        //toolbar.setBackgroundColor(null)
                     }
                 }
             }
@@ -159,8 +152,8 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         //checkPermisstion()
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun checkPermisstion() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val isAccept = ActivityCompat.checkSelfPermission(
                 applicationContext,
@@ -179,10 +172,6 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun startMap() {
-        //getDeviceLocation()
-        //mMap.isMyLocationEnabled = true
-    }
 
     private fun getDeviceLocation() {
         val locationResult: Task<Location>? =
@@ -208,51 +197,4 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-//    private fun getCurrentLocationNoMove() {
-//        val locationResult =
-//            mFusedLocationProviderClient!!.lastLocation
-//        locationResult.addOnCompleteListener(
-//            this
-//        ) { task ->
-//            if (task.isSuccessful) {
-//                mLastKnownLocation = task.result
-//                val target = LatLng(
-//                    mLastKnownLocation!!.latitude
-//                    , mLastKnownLocation!!.longitude
-//                )
-//                val mark = MarkerOptions()
-//                    .title("Current Position.")
-//                    .position(target)
-//
-//                mMap.addMarker(mark)
-//            } else {
-//                Toast.makeText(this@DetailRoomActivity, "problem here", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String?>,
-//        grantResults: IntArray
-//    ) {
-//
-//        mLocationPermissionsGranted = false
-//        when (requestCode) {
-//            LOCATION_PERMISSION_REQUEST_CODE -> {
-//                if (grantResults.size > 0) {
-//                    var i = 0
-//                    while (i < grantResults.size) {
-//                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-//                            mLocationPermissionsGranted = false
-//                            return
-//                        }
-//                        i++
-//                    }
-//                    mLocationPermissionsGranted = true
-//                    //initialize our map
-//                    startMap()
-//                }
-//            }
-//        }
-//    }
 }
