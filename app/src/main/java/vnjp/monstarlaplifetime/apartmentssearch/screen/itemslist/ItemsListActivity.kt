@@ -2,7 +2,6 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist
 
 import android.content.Intent
 import android.os.Bundle
-
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
@@ -15,6 +14,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import vnjp.monstarlaplifetime.apartmentssearch.R
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Comment
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
 import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
@@ -28,6 +29,7 @@ class ItemsListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     lateinit var buttonOpenMap: ImageButton
     lateinit var btCalendar: Button
+    var rooms: MutableList<Room>? = mutableListOf()
 
     companion object {
         const val BUNDLE_ID = "BUNDLE_ID"
@@ -45,13 +47,13 @@ class ItemsListActivity : AppCompatActivity() {
                 FirebaseDatabase.getInstance().getReference("rooms")
             val roomRepository = RoomRepositoryImpl(roomDatabaseReference)
 
-            roomRepository.getRooms(
-                onDataLoaded = {
-                    Log.d("firebase", "on data load ${it.size}")
-                },
-                onException = {
-                    Log.d("firebase", "on data load $it")
-                })
+            val comment = Comment(3, 3, "this is a comment test")
+            roomRepository.getRooms(onDataLoaded = {
+                Log.d("firebase", it.size.toString())
+                rooms?.clear()
+                rooms?.addAll(it)
+                rooms?.let { it1 -> itemsListAdapter?.setListRoom(it1) }
+            }, onException = {})
         }
     }
 

@@ -59,11 +59,11 @@ class ItemsListAdapter(private val context: Context, private val onClickItem: (I
         @SuppressLint("CheckResult")
         fun bind(room: Room) {
             Glide.with(context)
-                .load(R.drawable.room)
+                .load(room.image)
                 .centerCrop()
                 .into(imgRoom)
-            tvAccountRating.text = room.comments?.total.toString()
-            tvAccountComment.text = room.comments?.total.toString()
+            tvAccountRating.text = room.comments?.size.toString()
+            tvAccountComment.text = room.comments?.size.toString()
             tvNameRoom.text = room.name
             tvPriceRoom.text = room.price.toString()
 
