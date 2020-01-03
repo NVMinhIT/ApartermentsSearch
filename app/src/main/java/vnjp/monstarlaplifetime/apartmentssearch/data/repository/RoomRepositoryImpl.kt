@@ -8,6 +8,8 @@ import com.google.firebase.database.ValueEventListener
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Comment
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
+import kotlin.collections.HashMap
+import kotlin.collections.set
 
 class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository {
 
@@ -80,6 +82,29 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
                         }
                     }
                     onDataLoaded.invoke(room)
+                }
+            })
+    }
+
+    override fun getPriceRange(
+        onDataLoaded: (min: Float, max: Float) -> Unit,
+        onException: (String) -> Unit
+    ) {
+        roomDatabaseReference
+            .orderByChild("price")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    onException.invoke(p0.message)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    val start = p0.children.elementAt(0).getValue(Room::class.java)?.price!!
+                    val end =
+                        p0.children.elementAt((p0.childrenCount - 1).toInt())
+                            .getValue(Room::class.java)?.price!!
+                    if (start != end) {
+                        onDataLoaded.invoke(start, end)
+                    } else onException.invoke("cannot get price in range ")
                 }
             })
     }
@@ -162,5 +187,4 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
                 onUpdateResponse.invoke(result, message!!)
             }
     }
-
 }

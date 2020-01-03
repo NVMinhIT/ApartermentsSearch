@@ -15,6 +15,10 @@ interface RoomRepository {
         onDataLoaded: ((Room) -> Unit),
         onException: ((String) -> Unit)
     )
+    fun getPriceRange(
+        onDataLoaded: (min : Float,max : Float) -> Unit,
+        onException: (String) -> Unit
+    )
 
     fun getRoomInRange(
         position: LatLng,

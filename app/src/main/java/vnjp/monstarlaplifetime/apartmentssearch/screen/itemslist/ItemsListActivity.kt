@@ -32,12 +32,17 @@ class ItemsListActivity : AppCompatActivity() {
     lateinit var btGuest: Button
     lateinit var btFilter: Button
     private var id: String? = null
+    private var startPrice: Float = 0f
+    private var endPrice: Float = 0f
     private lateinit var databaseReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items_list)
         databaseReference = FirebaseDatabase.getInstance().getReference("rooms")
+        startPrice = intent.getFloatExtra(FilterActivity.START_PRICE, 0f)
+        endPrice = intent.getFloatExtra(FilterActivity.END_PRICE, 0f)
+
         initView()
         initEvent()
     }
@@ -50,19 +55,24 @@ class ItemsListActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        val query: Query = databaseReference.limitToLast(50)
+        val query: Query = if (startPrice == endPrice) {
+            databaseReference.limitToLast(50)
+        } else {
+            databaseReference.orderByChild("price")
+                .startAt(startPrice.toDouble())
+                .endAt(endPrice.toDouble())
+                .limitToLast(50)
+        }
+
         val firebaseRecyclerOptions: FirebaseRecyclerOptions<Room> =
             FirebaseRecyclerOptions.Builder<Room>().setQuery(query, Room::class.java).build()
+
         query.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-//                val size = StringBuffer()
-//                val size = "<b>" + size + "</b>"
-//                size.append(p0.childrenCount.toString()).append(" room")
-
                 val size = p0.childrenCount
                 val number = "<b>${size}</b> rooms "
                 tvNumberRoom.setText(Html.fromHtml(number, Html.FROM_HTML_MODE_LEGACY))

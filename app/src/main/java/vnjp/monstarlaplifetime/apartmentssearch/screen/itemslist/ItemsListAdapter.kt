@@ -35,6 +35,7 @@ class ItemsListAdapter(var query: FirebaseRecyclerOptions<Room>, val context: Co
         p0.bind(p2)
     }
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
