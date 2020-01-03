@@ -1,5 +1,6 @@
 package vnjp.monstarlaplifetime.apartmentssearch.screen.authentication
 
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -36,7 +37,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         userRepository = UserRepositoryImpl(databaseReference, firebaseAuth)
 
     }
-
 
     private fun initView() {
         btnRegister = findViewById(R.id.buttonRegister)

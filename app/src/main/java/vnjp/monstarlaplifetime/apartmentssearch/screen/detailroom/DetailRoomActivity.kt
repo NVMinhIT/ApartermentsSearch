@@ -43,6 +43,7 @@ import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.NearByLandAdapter
+import vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist.ItemsListAdapter
 
 class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
@@ -78,7 +79,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         databaseReference = FirebaseDatabase.getInstance().getReference("rooms")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent.extras?.let {
-            idRoom = it.getString("BUNDLE_ID_ROOM")
+            idRoom = it.getString(ItemsListAdapter.BUNDLE_ID_ROOM)
 
 
         }

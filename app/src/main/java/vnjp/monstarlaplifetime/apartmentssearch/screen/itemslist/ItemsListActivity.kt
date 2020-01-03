@@ -6,7 +6,6 @@ import android.text.Html
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +18,7 @@ import org.greenrobot.eventbus.ThreadMode
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
+import vnjp.monstarlaplifetime.apartmentssearch.screen.filter.FilterActivity
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.DateRangPickerBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.GuestsFragmentBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.map.MapsActivity
@@ -30,16 +30,9 @@ class ItemsListActivity : AppCompatActivity() {
     lateinit var buttonOpenMap: ImageButton
     lateinit var btCalendar: Button
     lateinit var btGuest: Button
-    lateinit var imgRoom: ImageView
+    lateinit var btFilter: Button
     private var id: String? = null
     private lateinit var databaseReference: DatabaseReference
-    private var arrayRoom: MutableList<Room> = mutableListOf()
-
-
-    companion object {
-        const val BUNDLE_ROOM_ID = "BUNDLE_ROOM_ID"
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +40,6 @@ class ItemsListActivity : AppCompatActivity() {
         databaseReference = FirebaseDatabase.getInstance().getReference("rooms")
         initView()
         initEvent()
-
     }
 
 
@@ -55,7 +47,6 @@ class ItemsListActivity : AppCompatActivity() {
         super.onStart()
         itemsListAdapter.startListening()
         EventBus.getDefault().register(this)
-
     }
 
     private fun initView() {
@@ -83,6 +74,7 @@ class ItemsListActivity : AppCompatActivity() {
         buttonOpenMap = findViewById(R.id.imbFeather)
         btCalendar = findViewById(R.id.btCalendar)
         btGuest = findViewById(R.id.btGuest)
+        btFilter = findViewById(R.id.btFilter)
         recyclerView.layoutManager = LinearLayoutManager(this)
         itemsListAdapter = ItemsListAdapter(firebaseRecyclerOptions, this)
         recyclerView.adapter = itemsListAdapter
@@ -114,6 +106,9 @@ class ItemsListActivity : AppCompatActivity() {
                 numberPeople.append(it).append(" people ")
                 btGuest.setText(numberPeople)
             }
+        }
+        btFilter.setOnClickListener {
+            startActivity(Intent(this, FilterActivity::class.java))
         }
 
         buttonOpenMap.setOnClickListener {

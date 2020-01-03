@@ -1,5 +1,6 @@
 package vnjp.monstarlaplifetime.apartmentssearch.screen.map
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -11,10 +12,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,8 +28,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_maps.*
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
+import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
+import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
+import vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist.ItemsListAdapter
 
 
 class MapsActivity : AppCompatActivity(),
@@ -34,8 +45,12 @@ class MapsActivity : AppCompatActivity(),
     private var currentMarker: Marker? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
+    // repo
+    private val roomDatabaseReference = FirebaseDatabase.getInstance().getReference("rooms")
+    private val roomRepository = RoomRepositoryImpl(roomDatabaseReference)
+
     lateinit var buttonClose: ImageButton
-    lateinit var cardRoomReview: CardView
+    lateinit var cardRoomReview: ConstraintLayout
 
     companion object {
         const val REQUEST_PERMISSION_CODE = 101
@@ -108,58 +123,78 @@ class MapsActivity : AppCompatActivity(),
         mMap.setOnMapLoadedCallback {
             location?.let {
                 val current = LatLng(it.latitude, it.longitude)
-                val locations: MutableList<LatLng> = ArrayList()
-                locations.add(current)
-                locations.add(LatLng(21.0124, 105.8992))
-                locations.add(LatLng(21.0290, 105.8493))
-                locations.add(LatLng(21.0294, 105.8483))
-                locations.add(LatLng(21.0286, 105.8482))
-                locations.add(LatLng(21.0283, 105.8489))
-                for (latLng in locations) {
-                    mMap.addMarker(
-                        MarkerOptions()
-                            .position(latLng)
-                            .icon(BitmapDescriptorFactory.fromBitmap(createMarker(R.layout.layout_map_marker)))
-                    ).tag = "room"
-                }
-
                 val builder = LatLngBounds.Builder()
-                builder.include(locations[0]) //điểm A
-                Util.calculationByDistance(locations[0], locations[locations.size - 1])
-                builder.include(locations[locations.size - 1]) //điểm B
+                builder.include(current)
+                mMap.addMarker(
+                    MarkerOptions()
+                        .position(current)
+                ).tag = "you"
+                roomRepository.getRoomInRange(current, 10.toDouble(), onDataLoaded = { rooms ->
+                    for ((key, room) in rooms) {
+                        val mark = LatLng(
+                            room.address?.latitude!!,
+                            room.address?.longtitude!!
+                        )
+                        mMap.addMarker(
+                            MarkerOptions()
+                                .position(mark)
+                                .icon(
+                                    BitmapDescriptorFactory.fromBitmap(
+                                        createMarker(
+                                            R.layout.layout_map_marker,
+                                            room.price
+                                        )
+                                    )
+                                )
+                        ).tag = key
 
-                val bounds = builder.build()
-                val cu = CameraUpdateFactory.newLatLngBounds(bounds, 200)
-                mMap.moveCamera(cu)
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(17f), 2000, null)
+                    }
+                    val bounds = builder.build()
+                    val cu = CameraUpdateFactory.newLatLngBounds(bounds, 200)
+                    mMap.moveCamera(cu)
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(17f), 2000, null)
+                }, onException = { message -> Log.d("location", message) })
             }
         }
 
-        mMap.setOnMarkerClickListener {
-            val t: String = it.tag as String
-            if (t == "room") {
-                if (currentMarker == null) {
-                    currentMarker = it
-                } else {
-                    currentMarker!!.setIcon(
+        mMap.setOnMarkerClickListener { marker ->
+            val roomKey: String = marker.tag as String
+            if (roomKey != "you") {
+                roomRepository.getDetailRoom(roomKey, onException = {}, onDataLoaded = { room ->
+                    if (currentMarker == null) {
+                        currentMarker = marker
+                    } else {
+                        currentMarker!!.setIcon(
+                            BitmapDescriptorFactory.fromBitmap(
+                                createMarker(
+                                    R.layout.layout_map_marker,
+                                    room.price
+                                )
+                            )
+                        )
+                    }
+                    marker.setIcon(
                         BitmapDescriptorFactory.fromBitmap(
                             createMarker(
-                                R.layout.layout_map_marker
+                                R.layout.layout_map_marker_selected,
+                                room.price
                             )
                         )
                     )
-                }
-                it.setIcon(BitmapDescriptorFactory.fromBitmap(createMarker(R.layout.layout_map_marker_selected)))
-                cardRoomReview.visibility = View.VISIBLE
-                currentMarker = it
+                    previewRoom(room, roomKey)
+                    currentMarker = marker
+                })
+
             }
             false
         }
 
     }
 
-    private fun createMarker(layout: Int): Bitmap {
+    private fun createMarker(layout: Int, price: Float?): Bitmap {
         val marker = LayoutInflater.from(this).inflate(layout, null)
+        val text: TextView = marker.findViewById(R.id.textMarkerPrice)
+        text.text = price.toString()
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         marker.layoutParams = ViewGroup.LayoutParams(52, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -174,6 +209,20 @@ class MapsActivity : AppCompatActivity(),
         val canvas = Canvas(bitmap)
         marker.draw(canvas)
         return bitmap
+    }
+
+    private fun previewRoom(room: Room, key: String) {
+        cardRoomReview.visibility = View.VISIBLE
+        var requestOptions = RequestOptions()
+        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(22))
+        Glide.with(this).load(room.image).apply(requestOptions).into(imageRoom)
+        textRoomName.text = room.name
+        textPrice.text = room.price.toString()
+        cardRoomReview.setOnClickListener {
+            val intent = Intent(this, DetailRoomActivity::class.java)
+            intent.putExtra(ItemsListAdapter.BUNDLE_ID_ROOM, key)
+            startActivity(intent)
+        }
     }
 
 }
