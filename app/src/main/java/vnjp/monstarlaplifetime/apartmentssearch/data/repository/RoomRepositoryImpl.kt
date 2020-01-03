@@ -15,7 +15,7 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
         onDataLoaded: ((List<Room>) -> Unit),
         onException: ((String) -> Unit)
     ) {
-        roomDatabaseReference.orderByKey()
+        roomDatabaseReference
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
                     onException.invoke(p0.message)
@@ -29,6 +29,7 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
                     onDataLoaded.invoke(rooms)
                 }
             })
+
     }
 
     override fun getComments(
@@ -48,9 +49,10 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
         roomDatabaseReference
             .child(roomKey)
             .child("comments")
+            .push()
             .setValue(comment)
             .addOnSuccessListener {
-                message = "Insert successfully"
+                message = "Insert comment successfully"
                 result = true
                 onAddCommentResult.invoke(result, message!!)
             }.addOnFailureListener {
@@ -70,6 +72,7 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
 
         roomDatabaseReference
             .child(roomKey)
+            .child("comments")
             .child(commentKey)
             .removeValue()
             .addOnSuccessListener {
@@ -93,6 +96,7 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
         var result: Boolean
         roomDatabaseReference
             .child(roomKey)
+            .child("comments")
             .child(commentKey)
             .setValue(comment)
             .addOnSuccessListener {

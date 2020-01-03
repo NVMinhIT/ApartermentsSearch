@@ -3,36 +3,54 @@ package vnjp.monstarlaplifetime.apartmentssearch.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Rent
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.User
 
 class UserRepositoryImpl(
-    userDatabaseReference: DatabaseReference,
+    databaseReference: DatabaseReference,
     firebaseAuth: FirebaseAuth
 ) : UserRepository {
 
-    override fun getUsers(
-        id: Int,
-        onDataLoaded: (List<User>) -> Unit,
-        onException: (String) -> Unit
-    ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    private val userDatabaseReference = databaseReference
+    private val firebaseAuth = firebaseAuth
+
 
     override fun login(
         email: String,
         password: String,
         onResponseLogin: (isComplete: Boolean, message: String) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    onResponseLogin.invoke(it.isSuccessful, "Login successfully")
+                } else {
+                    it.exception?.message?.let { mess ->
+                        onResponseLogin.invoke(
+                            it.isSuccessful,
+                            mess
+                        )
+                    }
+                }
+            }
     }
 
     override fun register(
         email: String,
         password: String,
-        user: User,
         onResponseRegister: (isComplete: Boolean, message: String) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    onResponseRegister.invoke(it.isSuccessful, "Register successfully")
+                } else {
+                    it.exception?.message?.let { mess ->
+                        onResponseRegister.invoke(
+                            it.isSuccessful,
+                            mess
+                        )
+                    }
+                }
+            }
     }
 
     override fun updateRent(
@@ -41,15 +59,46 @@ class UserRepositoryImpl(
         rent: Rent,
         onUpdateResponse: (isSuccess: Boolean, message: String) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var message: String?
+        var result: Boolean
+        userDatabaseReference
+            .child(userKey)
+            .child("rents")
+            .child(rentKey)
+            .setValue(rent)
+            .addOnSuccessListener {
+                message = "Remove successfully"
+                result = true
+                onUpdateResponse.invoke(result, message!!)
+            }.addOnFailureListener {
+                message = it.message
+                result = false
+                onUpdateResponse.invoke(result, message!!)
+            }
     }
 
     override fun addRent(
         userKey: String,
+        rentKey: String,
         rent: Rent,
         onAddResponse: (isSuccess: Boolean, message: String) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var message: String?
+        var result: Boolean
+
+        userDatabaseReference.child(userKey)
+            .child("rents")
+            .child(rentKey)
+            .setValue(rent)
+            .addOnSuccessListener {
+                message = "Remove successfully"
+                result = true
+                onAddResponse.invoke(result, message!!)
+            }.addOnFailureListener {
+                message = it.message
+                result = false
+                onAddResponse.invoke(result, message!!)
+            }
     }
 
     override fun deleteRent(
@@ -57,6 +106,21 @@ class UserRepositoryImpl(
         rentKey: String,
         onDeleteRentResponse: (isSuccess: Boolean, message: String) -> Unit
     ) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var message: String?
+        var result: Boolean
+
+        userDatabaseReference.child(userKey)
+            .child("rents")
+            .child(rentKey)
+            .removeValue()
+            .addOnSuccessListener {
+                message = "Remove successfully"
+                result = true
+                onDeleteRentResponse.invoke(result, message!!)
+            }.addOnFailureListener {
+                message = it.message
+                result = false
+                onDeleteRentResponse.invoke(result, message!!)
+            }
     }
 }

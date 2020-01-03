@@ -10,7 +10,7 @@ data class Room(
     @PropertyName("cancellations")
     var cancellations: String? = null,
     @PropertyName("comments")
-    var comments: Comments? = null,
+    var comments: HashMap<String, Comment>? = null,
     @PropertyName("description")
     var description: String? = null,
     @PropertyName("id")

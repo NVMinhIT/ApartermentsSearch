@@ -86,13 +86,16 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_login_button"
+            android:onClick="eventOnClickHandler"
             android:text="@string/text_hint_login"
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/textForgotPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:onClick="eventOnClickHandler"
             android:text="@string/text_forgot_password"
             android:textAlignment="center" />
 
@@ -104,6 +107,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_init_register"
+            android:onClick="eventOnClickHandler"
             android:text="@string/text_register"
             android:textColor="@color/black" />
     </LinearLayout>
