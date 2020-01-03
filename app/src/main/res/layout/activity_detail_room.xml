@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/AppBarLayout"
@@ -21,9 +22,9 @@
             app:titleEnabled="false">
 
             <ImageView
+                android:id="@+id/imgRoomShow"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:id="@+id/imgRoomShow"
                 android:scaleType="centerCrop"
                 android:src="@drawable/anim_sllide_show"
                 tools:ignore="ContentDescription" />
@@ -56,18 +57,15 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_layout_constrainlayout"
         android:clipToPadding="false"
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <!--        android:layout_marginTop="@dimen/_size"
-          android:fillViewport="true"
-        -->
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true">
 
             <TextView
@@ -598,9 +596,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAddressMap"
-                tools:visibility="gone"
+                tools:visibility="gone" />
 
-                />
 
             <TextView
                 android:id="@+id/tvRule"
@@ -632,8 +629,8 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvRule"
-                tools:visibility="gone"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded"
+                tools:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/imbRuleMore"

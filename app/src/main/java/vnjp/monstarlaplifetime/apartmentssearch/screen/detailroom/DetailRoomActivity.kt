@@ -32,7 +32,6 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.activity_detail_room.*
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.Amenities
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
 
 class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -112,15 +111,13 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        val arr: ArrayList<Amenities> = arrayListOf(
-            Amenities(R.drawable.ic_feather_wifi, "Wifi"),
-            Amenities(R.drawable.ic_feather_coffee, "Coffee maker"),
-            Amenities(R.drawable.ic_feather_monitor, "TV"),
-            Amenities(R.drawable.ic_feather_speaker, "Washer"),
-            Amenities(R.drawable.ic_feather_coffee, "Coffee maker"),
-            Amenities(R.drawable.ic_feather_monitor, "TV"),
-            Amenities(R.drawable.ic_feather_speaker, "Washer"),
-            Amenities(R.drawable.ic_feather_wifi, "Wifi")
+        val arr: ArrayList<String> = arrayListOf(
+            "TV",
+            "Washer",
+            "Coffee maker",
+            "TV",
+            "Washer",
+            "Wifi"
         )
         amenitiesAdapter.setListAmenities(arr)
     }

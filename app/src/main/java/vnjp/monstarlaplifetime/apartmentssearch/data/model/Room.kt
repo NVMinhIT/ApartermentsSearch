@@ -1,11 +1,28 @@
 package vnjp.monstarlaplifetime.apartmentssearch.data.model
 
-data class Room(
-    val idRoom: String,
-    val nameRoom: String,
-    val imageRoom: String,
-    val priceRoom: Int,
-    val accountRating: Int,
-    val accountComment: Int
+import com.google.firebase.database.PropertyName
 
+data class Room(
+    @PropertyName("address")
+    var address: Address? = null,
+    @PropertyName("amenities")
+    var amenities: List<String>? = null,
+    @PropertyName("cancellations")
+    var cancellations: String? = null,
+    @PropertyName("comments")
+    var comments: Comments? = null,
+    @PropertyName("description")
+    var description: String? = null,
+    @PropertyName("id")
+    var id: Int? = null,
+    @PropertyName("image")
+    var image: String? = null,
+    @PropertyName("name")
+    var name: String? = null,
+    @PropertyName("nearby_landmark")
+    var nearby_landmark: ArrayList<NearbyLandmark>? = null,
+    @PropertyName("price")
+    var price: Float? = null,
+    @PropertyName("rules")
+    var rules: ArrayList<String>? = null
 )

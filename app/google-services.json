@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "398295999346",
+    "firebase_url": "https://poised-aleph-263206.firebaseio.com",
+    "project_id": "poised-aleph-263206",
+    "storage_bucket": "poised-aleph-263206.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398295999346:android:196f75baa90c1e9c19f3eb",
+        "android_client_info": {
+          "package_name": "vnjp.monstarlaplifetime.apartmentssearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398295999346-bmcbdns4s4o6lujigte7lvrvcnj6irvf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vnjp.monstarlaplifetime.apartmentssearch",
+            "certificate_hash": "0f6d7505625e14c1277f252190855a39553a2ee1"
+          }
+        },
+        {
+          "client_id": "398295999346-2j28dhm0njk1ta0r65denqadq7h470db.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPuJ9NKGAslfnEH-nONd-VKjsRFtmCQbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398295999346-2j28dhm0njk1ta0r65denqadq7h470db.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

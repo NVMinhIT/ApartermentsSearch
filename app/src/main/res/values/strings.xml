@@ -47,11 +47,11 @@
     <string name="location">Location</string>
     <string name="address">28 Great Sutton St, Clerkenwell, London, EC1V 0DS</string>
     <string name="house_rules">House Rules</string>
-    <string name="rule">No pets No smoking, parties, or events Check-in is anytime after 3PM and check out by 11AM</string>
+    <string name="rule">No pets\n No smoking, parties, or events\n Check-in is anytime after 3PM and check out by 11AM</string>
     <string name="mar">Mar 28 – 30</string>
     <string name="cancellation">Cancellation</string>
     <string name="cancelation"><b>Strict</b>
-        This reservation is non-refundable because check-in is less than 7 days away.</string>
+       \nThis reservation is non-refundable because check-in is less than 7 days away.</string>
     <string name="account_stay">3 night stay</string>
     <string name="book">Book Now</string>
     <string name="current">$586</string>
@@ -68,4 +68,12 @@
 
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="texts_sign_in_hint">Sign in to continue</string>
+    <string name="text_login_welcome">Welcome Departments Search</string>
+    <string name="text_register">Register</string>
+    <string name="text_hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="text_hint_login">Login</string>
+    <string name="text_forgot_password">Forgot password?</string>
+    <string name="text_name">Name</string>
 </resources>

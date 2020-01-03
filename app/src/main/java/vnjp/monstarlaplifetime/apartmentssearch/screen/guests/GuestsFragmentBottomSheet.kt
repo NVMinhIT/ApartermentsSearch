@@ -16,10 +16,6 @@ import vnjp.monstarlaplifetime.apartmentssearch.R
 class GuestsFragmentBottomSheet : BottomSheetDialogFragment() {
 
 
-    fun newInstance(): GuestsFragmentBottomSheet {
-        return GuestsFragmentBottomSheet()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +42,6 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment() {
                     newState: Int
                 ) {
                     if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                        //handleUserExit()
                         dismiss()
                     }
                 }
@@ -59,9 +54,5 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment() {
             })
         }
         return d
-    }
-
-    private fun handleUserExit() {
-
     }
 }
