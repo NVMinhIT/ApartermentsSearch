@@ -31,10 +31,10 @@ class Util {
                 "Wifi"
             ),
             "This reservation is non-refundable because check-in is less than 7 days away.",
-            null,
+            hashMapOf(),
             "Slumber on a plush Eve memory foam mattress\u200B in the courtyard-facing bedroom of this characterful modernised period apartment. There's classy wooden flooring throughout while the traditional fireplace lends a cosy focal point to the living room.",
             1,
-            null,
+            "https://images.oyoroomscdn.com/uploads/hotel_image/81612/large/f0af88ee7aca453a.jpg",
             "Cozy Victorian Apartment in Islington",
             null,
             120f,

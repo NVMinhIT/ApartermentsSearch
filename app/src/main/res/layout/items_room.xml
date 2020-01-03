@@ -52,14 +52,16 @@
             android:textSize="@dimen/text_small" />
 
         <ImageButton
-            android:layout_width="@dimen/icon_small"
-            android:layout_height="@dimen/icon_small"
+            android:layout_width="@dimen/layout_width_small"
+            android:layout_height="@dimen/layout_width_small"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_top_xnormal"
+            android:layout_marginTop="@dimen/margin_top_min"
             android:background="@null"
+            android:id="@+id/imbLike"
             android:src="@drawable/ic_favorite_hint"
             tools:ignore="ContentDescription" />
     </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/contentImageRoom"
@@ -69,21 +71,25 @@
         android:layout_marginRight="@dimen/margin_xmin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded">
 
         <ImageView
             android:id="@+id/imgRoom"
             android:layout_width="@dimen/size_normal_width"
             android:layout_height="@dimen/layout_height_max"
-            android:background="@drawable/bg_image"
             android:scaleType="centerCrop"
             android:src="@drawable/room"
             tools:ignore="ContentDescription,MissingPrefix" />
 
         <TextView
             android:id="@+id/tvNameRoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="220dp"
+            android:layout_height="72dp"
+            android:singleLine="true"
+            android:gravity="bottom"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
@@ -91,7 +97,8 @@
             android:layout_marginLeft="@dimen/margin_left_normal"
             android:paddingBottom="@dimen/margin_xmin"
             android:text="@string/sunny_soho_flat"
-            android:textColor="@color/color_text_white" />
+            android:textColor="@color/color_text_white"
+            tools:ignore="RtlCompat" />
 
         <TextView
             android:id="@+id/tvPerNight"
@@ -124,5 +131,20 @@
             android:textSize="@dimen/text_small"
             android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/tvDollar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvPerNight"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="25dp"
+            android:layout_toLeftOf="@+id/tvPriceRoom"
+            android:text="@string/dollar"
+            android:textColor="@color/color_text_white"
+            android:textSize="@dimen/text_small"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

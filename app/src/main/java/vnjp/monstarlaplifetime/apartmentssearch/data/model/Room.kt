@@ -1,6 +1,7 @@
 package vnjp.monstarlaplifetime.apartmentssearch.data.model
 
-import com.google.firebase.database.PropertyName
+
+import com.google.firebase.firestore.PropertyName
 
 data class Room(
     @PropertyName("address")

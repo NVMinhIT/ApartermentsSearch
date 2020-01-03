@@ -38,7 +38,7 @@
             android:layout_marginLeft="@dimen/margin_max"
             android:layout_marginTop="@dimen/margin_top_min"
             android:src="@drawable/ic_feather_users"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,RtlHardcoded" />
 
         <TextView
             android:id="@+id/tvGuest"
@@ -51,7 +51,8 @@
             android:layout_toEndOf="@+id/imgUser"
             android:layout_toRightOf="@+id/imgUser"
             android:text="@string/total_guests"
-            android:textColor="#f5f5f7" />
+            android:textColor="#f5f5f7"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/tvAccountPeople"
@@ -63,10 +64,11 @@
             android:layout_marginTop="3dp"
             android:layout_toEndOf="@+id/imgUser"
             android:layout_toRightOf="@+id/imgUser"
-            android:text="@string/_2"
+            android:text="@string/_0"
             android:textColor="#f5f5f7"
             android:textSize="@dimen/text_x_small"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,7 +82,8 @@
             android:text="@string/people"
             android:textColor="#f5f5f7"
             android:textSize="@dimen/text_x_small"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -103,10 +106,10 @@
             android:textColor="#333333"
             android:textSize="@dimen/text_x_normal"
             android:textStyle="bold"
-            tools:ignore="RelativeOverlap" />
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
 
         <ImageButton
-            android:id="@+id/imbPlus"
+            android:id="@+id/imbPlusAdults"
             android:layout_width="@dimen/icon_xx_small"
             android:layout_height="@dimen/icon_xx_small"
             android:layout_alignParentEnd="true"
@@ -116,10 +119,10 @@
             android:layout_marginRight="@dimen/margin_top_normal"
             android:background="@null"
             android:src="@drawable/ic_feather_plus_circle"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,RtlHardcoded" />
 
         <TextView
-            android:id="@+id/tvAccount"
+            android:id="@+id/tvAccountAdults"
             android:layout_width="@dimen/size_text"
             android:layout_height="@dimen/size_text"
             android:layout_alignParentTop="true"
@@ -128,12 +131,13 @@
             android:layout_marginEnd="@dimen/margin_min"
             android:layout_marginRight="@dimen/margin_min"
             android:layout_marginBottom="@dimen/margin_xmin"
-            android:layout_toStartOf="@+id/imbPlus"
-            android:layout_toLeftOf="@+id/imbPlus"
+            android:layout_toStartOf="@+id/imbPlusAdults"
+            android:layout_toLeftOf="@+id/imbPlusAdults"
             android:gravity="center_vertical"
-            android:text="@string/_2"
+            android:text="@string/_0"
             android:textAlignment="center"
-            android:textSize="@dimen/text_large" />
+            android:textSize="@dimen/text_large"
+            tools:ignore="RtlHardcoded" />
 
         <ImageButton
             android:layout_width="@dimen/icon_xx_small"
@@ -141,11 +145,12 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_min"
             android:layout_marginRight="@dimen/margin_min"
-            android:layout_toStartOf="@+id/tvAccount"
-            android:layout_toLeftOf="@+id/tvAccount"
+            android:id="@+id/imbMinusAdults"
+            android:layout_toStartOf="@+id/tvAccountAdults"
+            android:layout_toLeftOf="@+id/tvAccountAdults"
             android:background="@null"
-            android:src="@drawable/ic_feather_minus_circle"
-            tools:ignore="ContentDescription" />
+            android:src="@drawable/ic_feather_minus_circle_hint"
+            tools:ignore="ContentDescription,RtlHardcoded" />
 
         <View
             android:layout_width="@dimen/layout_width_max"
@@ -178,7 +183,7 @@
             android:textColor="#333333"
             android:textSize="@dimen/text_x_normal"
             android:textStyle="bold"
-            tools:ignore="RelativeOverlap" />
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -188,7 +193,8 @@
             android:layout_marginLeft="@dimen/margin_left_normal"
             android:text="@string/ages_2_12"
             android:textColor="@color/color_text_hint"
-            android:textSize="@dimen/text_x_small" />
+            android:textSize="@dimen/text_x_small"
+            tools:ignore="RtlHardcoded" />
 
         <ImageButton
             android:id="@+id/imbPlusChildren"
@@ -201,7 +207,7 @@
             android:layout_marginRight="@dimen/margin_top_normal"
             android:background="@null"
             android:src="@drawable/ic_feather_plus_circle"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,RtlHardcoded" />
 
         <TextView
             android:id="@+id/tvAccountChildren"
@@ -216,9 +222,10 @@
             android:layout_toStartOf="@+id/imbPlusChildren"
             android:layout_toLeftOf="@+id/imbPlusChildren"
             android:gravity="center_vertical"
-            android:text="@string/_2"
+            android:text="@string/_0"
             android:textAlignment="center"
-            android:textSize="@dimen/text_large" />
+            android:textSize="@dimen/text_large"
+            tools:ignore="RtlHardcoded" />
 
         <ImageButton
             android:layout_width="@dimen/icon_xx_small"
@@ -229,8 +236,9 @@
             android:layout_toStartOf="@+id/tvAccountChildren"
             android:layout_toLeftOf="@+id/tvAccountChildren"
             android:background="@null"
+            android:id="@+id/imbMinusChildren"
             android:src="@drawable/ic_feather_minus_circle_hint"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,RtlHardcoded" />
 
         <View
             android:layout_width="@dimen/layout_width_max"
@@ -263,7 +271,7 @@
             android:textColor="#333333"
             android:textSize="@dimen/text_x_normal"
             android:textStyle="bold"
-            tools:ignore="RelativeOverlap" />
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -273,7 +281,8 @@
             android:layout_marginLeft="@dimen/margin_left_normal"
             android:text="@string/under_2"
             android:textColor="@color/color_text_hint"
-            android:textSize="@dimen/text_x_small" />
+            android:textSize="@dimen/text_x_small"
+            tools:ignore="RtlHardcoded" />
 
         <ImageButton
             android:id="@+id/imbPlusInfants"
@@ -301,7 +310,7 @@
             android:layout_toStartOf="@+id/imbPlusInfants"
             android:layout_toLeftOf="@+id/imbPlusInfants"
             android:gravity="center_vertical"
-            android:text="@string/_2"
+            android:text="@string/_0"
             android:textAlignment="center"
             android:textSize="@dimen/text_large"
             tools:ignore="RtlHardcoded" />
@@ -315,8 +324,9 @@
             android:layout_toStartOf="@+id/tvAccountInfants"
             android:layout_toLeftOf="@+id/tvAccountInfants"
             android:background="@null"
+            android:id="@+id/imbMinusInfants"
             android:src="@drawable/ic_feather_minus_circle_hint"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,RtlHardcoded" />
 
         <View
             android:layout_width="@dimen/layout_width_max"
