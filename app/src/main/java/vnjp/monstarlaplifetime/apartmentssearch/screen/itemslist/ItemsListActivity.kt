@@ -14,15 +14,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import vnjp.monstarlaplifetime.apartmentssearch.R
+
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Comment
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
 import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
-
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.RoomTest
-
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.DateRangPickerBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.GuestsFragmentBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.map.MapsActivity
@@ -33,7 +30,8 @@ class ItemsListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     lateinit var buttonOpenMap: ImageButton
     lateinit var btCalendar: Button
-    var rooms: MutableList<Room>? = mutableListOf()
+    private var arrayRoom: MutableList<Room> = mutableListOf()
+
 
     companion object {
         const val BUNDLE_ID = "BUNDLE_ID"
@@ -50,14 +48,18 @@ class ItemsListActivity : AppCompatActivity() {
             val roomDatabaseReference =
                 FirebaseDatabase.getInstance().getReference("rooms")
             val roomRepository = RoomRepositoryImpl(roomDatabaseReference)
+            roomRepository.getRooms(
+                onDataLoaded = {
+                    Log.d("firebase", "on data load ${it.size}")
+                    arrayRoom.clear()
+                    arrayRoom.addAll(it)
+                    itemsListAdapter.setListRoom(arrayRoom)
+                    Log.d("minh", arrayRoom.toString())
+                },
+                onException = {
+                    Log.d("firebase", "on data load $it")
+                })
 
-            val comment = Comment(3, 3, "this is a comment test")
-            roomRepository.getRooms(onDataLoaded = {
-                Log.d("firebase", it.size.toString())
-                rooms?.clear()
-                rooms?.addAll(it)
-                rooms?.let { it1 -> itemsListAdapter?.setListRoom(it1) }
-            }, onException = {})
         }
     }
 
@@ -67,28 +69,9 @@ class ItemsListActivity : AppCompatActivity() {
         btCalendar = findViewById(R.id.btCalendar)
         recyclerView.layoutManager = LinearLayoutManager(this)
         itemsListAdapter = ItemsListAdapter(this)
-//        itemsListAdapter = ItemsListAdapter(this) {
-//            val intent = Intent(this, DetailRoomActivity::class.java)
-//            intent.putExtra(BUNDLE_ID, itemsListAdapter.getPosition(it).id)
-//            startActivity(intent)
-//        }
         recyclerView.adapter = itemsListAdapter
-        //val room = Util.getStatisticRooms()
-        //val arrayList = arrayListOf(room, room, room, room, room)
         itemsListAdapter = ItemsListAdapter(this)
         recyclerView.adapter = itemsListAdapter
-        val arrayList = arrayListOf(
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false),
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false),
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false),
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,true),
-            RoomTest("R1", "Sunny Soho Flat", "", 120, 4, 2,false)
-        )
-
-        itemsListAdapter.setListRoom(arrayList)
     }
 
     private fun initEvent() {
@@ -105,7 +88,5 @@ class ItemsListActivity : AppCompatActivity() {
                 DateRangPickerBottomSheet()
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.getTag())
         }
-
     }
-
 }

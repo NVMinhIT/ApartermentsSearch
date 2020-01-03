@@ -17,13 +17,15 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
+
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.RoomTest
+
 import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
 
 
 class ItemsListAdapter(private val context: Context) :
     RecyclerView.Adapter<ItemsListAdapter.MyViewHolder>() {
-    private var listRoom: List<RoomTest> = emptyList()
+    private var listRoom: List<Room> = emptyList()
 
     companion object {
         const val BUNDLE_ID_ROOM = "BUNDLE_ID_ROOM"
@@ -31,12 +33,12 @@ class ItemsListAdapter(private val context: Context) :
 
     var isLike: Boolean = true
 
-    fun setListRoom(list: List<RoomTest>) {
+    fun setListRoom(list: List<Room>) {
         listRoom = list
         notifyDataSetChanged()
     }
 
-    fun getPosition(position: Int): RoomTest {
+    fun getPosition(position: Int): Room {
         return listRoom.get(position)
     }
 
@@ -66,35 +68,28 @@ class ItemsListAdapter(private val context: Context) :
         private val imgRoom: ImageView = itemView.findViewById(R.id.imgRoom)
         private val imbLike: ImageButton = itemView.findViewById(R.id.imbLike)
 
-//        init {
-//            itemView.setOnClickListener {
-//                onClickItem(adapterPosition)
-//            }
-//        }
 
         @SuppressLint("CheckResult")
-        fun bind(room: RoomTest) {
+        fun bind(room: Room) {
             var requestOptions = RequestOptions()
             requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(22))
-            Glide.with(context).load(R.drawable.room).apply(requestOptions).into(imgRoom)
+            Glide.with(context).load(room.image).apply(requestOptions).into(imgRoom)
 //            Glide.with(context)
 //                .load(R.drawable.room)
 //                .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(context, 32, 0, RoundedCornersTransformation.CornerType.TOP_LEFT
 //                )))
 //                .into(imgRoom)
 
-            tvAccountRating.text = room.accountRating.toString()
-            tvAccountComment.text = room.accountComment.toString()
-            tvNameRoom.text = room.nameRoom
-            tvPriceRoom.text = room.priceRoom.toString()
-
-
+            tvAccountComment.text = room.comments?.size.toString()
+            tvAccountRating.text = room.comments?.size.toString()
+            tvPriceRoom.text = room.price.toString()
+            tvNameRoom.text = room.name
             imgRoom.setOnClickListener {
                 val intent = Intent(context, DetailRoomActivity::class.java)
-                intent.putExtra(BUNDLE_ID_ROOM, room.idRoom)
+                intent.putExtra(BUNDLE_ID_ROOM, room.id)
                 context.startActivity(intent)
             }
-            imgRoom.setOnClickListener {
+            imbLike.setOnClickListener {
                 setLikeRoom(isLike)
             }
 
@@ -123,18 +118,7 @@ class ItemsListAdapter(private val context: Context) :
             }
         }
 
-        @SuppressLint("CheckResult")
-        fun bind(room: Room) {
-            Glide.with(context)
-                .load(room.image)
-                .centerCrop()
-                .into(imgRoom)
-            tvAccountRating.text = room.comments?.size.toString()
-            tvAccountComment.text = room.comments?.size.toString()
-            tvNameRoom.text = room.name
-            tvPriceRoom.text = room.price.toString()
 
 
-        }
     }
 }

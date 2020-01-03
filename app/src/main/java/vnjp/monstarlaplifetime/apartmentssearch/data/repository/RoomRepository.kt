@@ -10,6 +10,11 @@ interface RoomRepository {
         onException: ((String) -> Unit)
     )
 
+    fun getDetailRoom(
+        onDataLoaded: ((Room) -> Unit),
+        onException: ((String) -> Unit)
+    )
+
     fun getComments(
         onCommentsLoaded: ((List<Comment>) -> Unit),
         onException: ((String) -> Unit)

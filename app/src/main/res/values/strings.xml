@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Apartments Search</string>
 
-    <string name="textDurationExample">3 nights stay</string>
+    <string name="textDurationExample"> nights stay</string>
     <string name="textButtonApply">Apply</string>
     <string name="textDateExample">Thu, Mar 28</string>
     <string name="textCheckIn">Check In</string>
@@ -47,7 +47,7 @@
     <string name="location">Location</string>
     <string name="address">28 Great Sutton St, Clerkenwell, London, EC1V 0DS</string>
     <string name="house_rules">House Rules</string>
-    <string name="rule">No pets\n No smoking, parties, or events\n Check-in is anytime after 3PM and check out by 11AM</string>
+    <string name="rule">No pets\nNo smoking, parties, or events\nCheck-in is anytime after 3PM and check out by 11AM</string>
     <string name="mar">Mar 28 – 30</string>
     <string name="cancellation">Cancellation</string>
     <string name="cancelation"><b>Strict</b>
@@ -68,7 +68,6 @@
 
     </string-array>
     <string name="title_activity_maps">Map</string>
-
     <string name="texts_sign_in_hint">Sign in to continue</string>
     <string name="text_login_welcome">Welcome Departments Search</string>
     <string name="text_register">Register</string>
@@ -80,5 +79,6 @@
 
     <string name="dollar">$</string>
     <string name="abc">abc</string>
+    <string name="_0">0</string>
 
 </resources>

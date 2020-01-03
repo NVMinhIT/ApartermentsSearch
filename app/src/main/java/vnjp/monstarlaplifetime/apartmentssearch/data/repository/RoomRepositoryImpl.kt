@@ -32,6 +32,10 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
 
     }
 
+    override fun getDetailRoom(onDataLoaded: (Room) -> Unit, onException: (String) -> Unit) {
+
+    }
+
     override fun getComments(
         onCommentsLoaded: (List<Comment>) -> Unit,
         onException: (String) -> Unit
