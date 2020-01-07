@@ -7,14 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.TextView
 import com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet.*
+import org.greenrobot.eventbus.EventBus
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import java.text.SimpleDateFormat
+import vnjp.monstarlaplifetime.apartmentssearch.data.Commons
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -22,16 +24,14 @@ import java.util.concurrent.TimeUnit
 @Suppress("DEPRECATION")
 class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
 
-    //    private var calendarListeners: CalendarListener? = null
+
     private var calendarView: DateRangeCalendarView? = null
+    private var dDay: String? = null
+    private lateinit var textApply: TextView
 
     fun newInstance(): DateRangPickerBottomSheet {
         return DateRangPickerBottomSheet()
     }
-
-//    fun setCalendarListener(calendarListener: CalendarListener) {
-//        this.calendarListeners = calendarListener
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,47 +46,40 @@ class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
 
     private fun initView(view: View?) {
         calendarView = view!!.findViewById(R.id.calendar)
+        textApply = view.findViewById(R.id.textApply)
     }
 
     private fun initEvent() {
         calendarView?.setCalendarListener(object : DateRangeCalendarView.CalendarListener {
             override fun onDateRangeSelected(startDate: Calendar?, endDate: Calendar?) {
-
                 val long: Long = endDate!!.timeInMillis - startDate!!.timeInMillis
                 val longDay = TimeUnit.MILLISECONDS.toDays(long)
                 tvNumberDay.setText(longDay.toString())
-                Log.d("hihi", longDay.toString())
-                val sdf = SimpleDateFormat("EEE, MMM dd", Locale.US)
-                //  val date: Date
-                val s = sdf.format(startDate.time)
-                val e = sdf.format(endDate.time)
-                textDateCheckIn.text = s.toString()
-                textDateCheckOut.text = e.toString()
+                val sDay = Commons.getStringCurrentDateTime(startDate.time)
+                val eDay = Commons.getStringCurrentDateTime(endDate.time)
+                textDateCheckIn.text = sDay.toString()
+                textDateCheckOut.text = eDay.toString()
+                val dCheckIn = Commons.getCurrentDateTime(startDate.time)
+                val dCheckOut = Commons.getCurrentDateTime(endDate.time)
+                val day = StringBuffer()
+                day.append(dCheckIn).append(" - ").append(dCheckOut)
+                dDay = day.toString()
+                Log.d("HIHI", "${dDay}")
 
-//                val e = sdf.format(endDate!!.time)
-//                Toast.makeText(
-//                    context,
-//                    "Start Date: " + s.toString() + " End date: " + e.toString(),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-                //calendarView!!.setSelectedDateRange(startDate, endDate);
             }
 
             override fun onFirstDateSelected(startDate: Calendar?) {
                 tvNumberDay.setText("0")
-//                Toast.makeText(
-//                    context,
-//                    "Start Date: " + s.toString(),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                Toast.makeText(
-//                    context,
-//                    "Start Date: " + startDate?.getTime().toString(),
-//                    Toast.LENGTH_SHORT
-//                ).show();
+
             }
 
         })
+        // option day
+        textApply.setOnClickListener {
+            EventBus.getDefault().post(dDay)
+            dialog?.dismiss()
+
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -106,7 +99,6 @@ class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
                     newState: Int
                 ) {
                     if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                        //handleUserExit()
                         dismiss()
                     }
                 }

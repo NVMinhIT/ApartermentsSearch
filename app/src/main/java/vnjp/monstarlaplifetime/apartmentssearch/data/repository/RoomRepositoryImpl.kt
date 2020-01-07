@@ -32,9 +32,30 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
 
     }
 
-    override fun getDetailRoom(onDataLoaded: (Room) -> Unit, onException: (String) -> Unit) {
+    override fun getDetailRoom(
+        id: String,
+        onDataLoaded: (Room) -> Unit,
+        onException: (String) -> Unit
+    ) {
+        roomDatabaseReference
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    onException.invoke(p0.message)
+                }
 
+                override fun onDataChange(p0: DataSnapshot) {
+                    var room = Room()
+                    for (snapshot in p0.children) {
+                        if (snapshot.key == id) {
+                            room = snapshot.getValue(Room::class.java)!!
+
+                        }
+                    }
+                    onDataLoaded.invoke(room)
+                }
+            })
     }
+
 
     override fun getComments(
         onCommentsLoaded: (List<Comment>) -> Unit,

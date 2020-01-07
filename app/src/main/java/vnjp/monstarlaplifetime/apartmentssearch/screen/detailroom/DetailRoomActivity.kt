@@ -8,6 +8,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -30,9 +31,18 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
 import com.google.android.material.appbar.AppBarLayout
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_detail_room.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import vnjp.monstarlaplifetime.apartmentssearch.R
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.NearbyLandmark
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
+import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
+import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.NearByLandAdapter
 
 class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
@@ -48,6 +58,14 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var amenitiesAdapter: AmenitiesAdapter
     private lateinit var recyclerView: RecyclerView
+    private var idRoom: String? = null
+    private lateinit var databaseReference: DatabaseReference
+    private var listAmenties: MutableList<String> = mutableListOf()
+    private lateinit var nearByLandAdapter: NearByLandAdapter
+    private lateinit var recyclerViewNearBy: RecyclerView
+    private var listNearBy: MutableList<NearbyLandmark> = mutableListOf()
+    private lateinit var room: Room
+
 
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 1000
@@ -56,10 +74,56 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_room)
+        room = Room()
+        databaseReference = FirebaseDatabase.getInstance().getReference("rooms")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        intent.extras?.let {
+            idRoom = it.getString("BUNDLE_ID_ROOM")
+
+
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val roomRepository = RoomRepositoryImpl(databaseReference)
+            idRoom?.let {
+                roomRepository.getDetailRoom(
+                    id = it,
+                    onDataLoaded = {
+                        room = it
+                        Log.d("MINHMOM", room.name.toString())
+                        //tvNameRoomDetail.setText(room.name.toString())
+                        initData()
+                    },
+                    onException = {
+                        Log.d("firebase", "on data load $it")
+                    })
+            }
+
+        }
+
         initView()
         initEvent()
+
     }
+
+    private fun initData() {
+        tvNameRoomDetail.setText(room.name.toString())
+        Log.d("hihi", "${room.name}")
+        tvAddress.setText(room.address?.address_name)
+        room.comments?.size?.let { tvNumberReviews.setText(it.toString()) }
+        room.comments?.size?.let { tvNumberRating.setText(it.toString()) }
+        tvAddressMap.setText(room.address?.address_name)
+        tvContentCancellation.setText(room.cancellations)
+        listAmenties.clear()
+        room.amenities?.let { listAmenties.addAll(it) }
+        amenitiesAdapter.setListAmenities(listAmenties)
+        listNearBy.clear()
+        room.nearby_landmark?.let { listNearBy.addAll(it) }
+        nearByLandAdapter.setListNearbyLandmark(listNearBy)
+
+
+    }
+
     private fun initView() {
         toolbar = findViewById(R.id.toolbar)
         toolbarTitle = toolbar.findViewById(R.id.textToolbarTitle)
@@ -79,10 +143,18 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         tvContentRule.setLineSpacing(3F, 1.5f)
         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
         toolbar.inflateMenu(R.menu.menu_detail)
+
+        //nearbyLandmark
+        recyclerViewNearBy = findViewById(R.id.rvListDistance)
+        recyclerViewNearBy.layoutManager = LinearLayoutManager(this)
+        nearByLandAdapter = NearByLandAdapter(this)
+        recyclerViewNearBy.adapter = nearByLandAdapter
+
     }
+
     @SuppressLint("SetTextI18n")
     private fun initEvent() {
-        toolbarTitle.setText("Cozy Victorian Apartment in Islington")
+
         AppBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             @SuppressLint("ResourceAsColor")
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State) {
@@ -91,6 +163,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
                         toolbarTitle.visibility = View.VISIBLE
                         toolbar.setBackgroundColor(getColor(R.color.color_text_white))
                         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__dark)
+                        toolbarTitle.setText(room.name.toString())
                     }
                     else -> {
                         toolbarTitle.visibility = View.INVISIBLE
@@ -104,15 +177,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-        val arr: ArrayList<String> = arrayListOf(
-            "TV",
-            "Washer",
-            "Coffee maker",
-            "TV",
-            "Washer",
-            "Wifi"
-        )
-        amenitiesAdapter.setListAmenities(arr)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

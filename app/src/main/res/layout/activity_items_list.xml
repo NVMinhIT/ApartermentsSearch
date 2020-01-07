@@ -35,10 +35,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/imbBack"
                 android:layout_toRightOf="@+id/imbBack"
                 android:gravity="center_vertical"
-                android:layout_centerVertical="true"
                 android:text="@string/london_uk"
                 android:textColor="@color/color_text_bold"
                 android:textSize="@dimen/text_x_normal"
@@ -49,12 +49,12 @@
                 android:id="@+id/imbFeather"
                 android:layout_width="48dp"
                 android:layout_height="@dimen/icon_x_small"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
-                android:background="@null"
                 android:layout_centerVertical="true"
+                android:background="@null"
                 android:src="@drawable/ic_feather_map"
                 tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -74,18 +74,21 @@
 
         <Button
             android:id="@+id/btCalendar"
-            android:layout_width="@dimen/button_xnormal_width"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/button_height"
             android:layout_marginStart="@dimen/margin_left_x_normal"
             android:layout_marginLeft="@dimen/margin_left_x_normal"
             android:layout_marginTop="@dimen/margin_top_min"
-            android:textAllCaps="false"
             android:background="@drawable/bg_button"
+            android:gravity="center"
+            android:padding="6dp"
             android:text="@string/mar"
+            android:textAllCaps="false"
             android:textColor="@color/color_text_blue"
             android:textSize="@dimen/text_x_small"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btGuest"
             app:layout_constraintTop_toBottomOf="@+id/contentRelativeLayout"
             tools:ignore="RtlHardcoded" />
 
@@ -96,16 +99,18 @@
             android:layout_marginStart="@dimen/margin_normal_small"
             android:layout_marginLeft="@dimen/margin_normal_small"
             android:layout_marginTop="@dimen/margin_top_min"
-            android:clickable="true"
-            android:textAllCaps="false"
             android:background="@drawable/bg_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
             android:text="@string/guest"
+            android:textAllCaps="false"
             android:textColor="@color/color_text_blue"
             android:textSize="@dimen/text_x_small"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/btCalendar"
             app:layout_constraintTop_toBottomOf="@+id/contentRelativeLayout"
-            android:focusable="true" />
+            tools:ignore="RtlHardcoded" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -131,19 +136,20 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvNumberRoom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/margin_left_normal"
-            android:layout_marginLeft="@dimen/margin_left_normal"
             android:gravity="center_vertical"
+            android:paddingLeft="42dp"
             android:text="@string/_48_results_found"
             android:textColor="@color/color_text_hintt"
             android:textSize="@dimen/text_x_small"
-            tools:ignore="RelativeOverlap,RtlHardcoded" />
+            tools:ignore="RelativeOverlap,RtlHardcoded,RtlSymmetry" />
 
         <Button
+            android:id="@+id/btFilter"
             android:layout_width="@dimen/button_xxnormal_width"
             android:layout_height="@dimen/layout_height_normal"
             android:layout_alignParentEnd="true"

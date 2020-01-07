@@ -2,7 +2,6 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,17 +14,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.RoomTest
 
-import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
+class ItemsListAdapter(var query: FirebaseRecyclerOptions<Room>, val context: Context) :
+    FirebaseRecyclerAdapter<Room, ItemsListAdapter.MyViewHolder>(query) {
 
-
-class ItemsListAdapter(private val context: Context) :
-    RecyclerView.Adapter<ItemsListAdapter.MyViewHolder>() {
-    private var listRoom: List<Room> = emptyList()
+    var onClick: ((Room, String) -> Unit)? = null
+    var getSizeRoom: ((Int) -> Unit)? = null
 
     companion object {
         const val BUNDLE_ID_ROOM = "BUNDLE_ID_ROOM"
@@ -33,13 +32,9 @@ class ItemsListAdapter(private val context: Context) :
 
     var isLike: Boolean = true
 
-    fun setListRoom(list: List<Room>) {
-        listRoom = list
-        notifyDataSetChanged()
-    }
-
-    fun getPosition(position: Int): Room {
-        return listRoom.get(position)
+    override fun onBindViewHolder(p0: MyViewHolder, p1: Int, p2: Room) {
+//        val current = listRoom[p1]
+        p0.bind(p2)
     }
 
     override fun onCreateViewHolder(
@@ -51,13 +46,12 @@ class ItemsListAdapter(private val context: Context) :
         return MyViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listRoom.size
-    }
+//    override fun getItemCount(): Int {
+//        //return listRoom.size
+//    }
 
-    override fun onBindViewHolder(holder: ItemsListAdapter.MyViewHolder, position: Int) {
-        val current = listRoom[position]
-        holder.bind(current)
+    fun getSize(): Int {
+        return snapshots.size
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -68,27 +62,22 @@ class ItemsListAdapter(private val context: Context) :
         private val imgRoom: ImageView = itemView.findViewById(R.id.imgRoom)
         private val imbLike: ImageButton = itemView.findViewById(R.id.imbLike)
 
-
         @SuppressLint("CheckResult")
         fun bind(room: Room) {
             var requestOptions = RequestOptions()
             requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(22))
             Glide.with(context).load(room.image).apply(requestOptions).into(imgRoom)
-//            Glide.with(context)
-//                .load(R.drawable.room)
-//                .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(context, 32, 0, RoundedCornersTransformation.CornerType.TOP_LEFT
-//                )))
-//                .into(imgRoom)
-
             tvAccountComment.text = room.comments?.size.toString()
             tvAccountRating.text = room.comments?.size.toString()
             tvPriceRoom.text = room.price.toString()
             tvNameRoom.text = room.name
             imgRoom.setOnClickListener {
-                val intent = Intent(context, DetailRoomActivity::class.java)
-                intent.putExtra(BUNDLE_ID_ROOM, room.id)
-                context.startActivity(intent)
+                snapshots.getSnapshot(adapterPosition).key?.let { key ->
+                    onClick?.invoke(room, key)
+
+                }
             }
+
             imbLike.setOnClickListener {
                 setLikeRoom(isLike)
             }
@@ -118,7 +107,7 @@ class ItemsListAdapter(private val context: Context) :
             }
         }
 
-
-
     }
+
+
 }
