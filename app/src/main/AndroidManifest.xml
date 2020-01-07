@@ -16,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+        <activity android:name=".screen.filter.FilterActivity"></activity>
         <activity android:name=".screen.PlashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +26,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.authentication.LoginActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".screen.authentication.RegisterActivity" />
         <!--
@@ -49,9 +51,7 @@
         <activity
             android:name=".screen.detailroom.DetailRoomActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".screen.itemslist.ItemsListActivity">
-
-        </activity>
+        <activity android:name=".screen.itemslist.ItemsListActivity" />
     </application>
 
 </manifest>

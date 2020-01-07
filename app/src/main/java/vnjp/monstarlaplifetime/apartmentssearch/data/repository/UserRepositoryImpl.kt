@@ -1,6 +1,5 @@
 package vnjp.monstarlaplifetime.apartmentssearch.data.repository
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Rent
@@ -9,10 +8,6 @@ class UserRepositoryImpl(
     private val userDatabaseReference: DatabaseReference,
     private val firebaseAuth: FirebaseAuth
 ) : UserRepository {
-
-    // private val userDatabaseReference = databaseReference
-    //private val firebaseAuth = firebaseAuth
-
 
     override fun login(
         email: String,
@@ -43,15 +38,12 @@ class UserRepositoryImpl(
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     onResponseRegister.invoke(it.isSuccessful, "Register successfully")
-                    Log.d("minh", it.toString())
-
-
                 } else {
                     it.exception?.message?.let { mess ->
-                        //                        onResponseRegister.invoke(
-//                            it.isSuccessful,
-//                            mess
-//                        )
+                        onResponseRegister.invoke(
+                            it.isSuccessful,
+                            mess
+                        )
                     }
                 }
             }
@@ -92,7 +84,7 @@ class UserRepositoryImpl(
 
         userDatabaseReference.child(userKey)
             .child("rents")
-            .child(rentKey)
+            .push()
             .setValue(rent)
             .addOnSuccessListener {
                 message = "Remove successfully"

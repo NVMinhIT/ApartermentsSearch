@@ -1,11 +1,13 @@
 package vnjp.monstarlaplifetime.apartmentssearch.data.repository
 
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Comment
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
 
 class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository {
 
@@ -29,7 +31,33 @@ class RoomRepositoryImpl(databaseReference: DatabaseReference) : RoomRepository 
                     onDataLoaded.invoke(rooms)
                 }
             })
+    }
 
+    override fun getRoomInRange(
+        position: LatLng,
+        range: Double,
+        onDataLoaded: (HashMap<String, Room>) -> Unit,
+        onException: (String) -> Unit
+    ) {
+        roomDatabaseReference
+            .addValueEventListener(object : ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    onException.invoke(p0.message)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    val rooms = HashMap<String, Room>()
+                    for (snapshot in p0.children) {
+                        val room = snapshot.getValue(Room::class.java)!!
+                        if (Util.calculationByDistance(
+                                position,
+                                LatLng(room.address?.latitude!!, room.address?.longtitude!!)
+                            ) <= range
+                        ) rooms[snapshot.key!!] = room
+                    }
+                    onDataLoaded.invoke(rooms)
+                }
+            })
     }
 
     override fun getDetailRoom(

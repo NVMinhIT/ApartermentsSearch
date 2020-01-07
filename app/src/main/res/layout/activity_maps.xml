@@ -22,58 +22,55 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/reviewContainer"
-        android:layout_width="345dp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imageRoom"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/room"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageRoom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/room" />
+        <TextView
+            android:id="@+id/textRoomName"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Cozy Victorian Apartment in Islington"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/imageRoom"
+            app:layout_constraintLeft_toLeftOf="@id/imageRoom" />
 
-            <TextView
-                android:id="@+id/textRoomName"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Cozy Victorian Apartment in Islington"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@id/imageRoom"
-                app:layout_constraintLeft_toLeftOf="@id/imageRoom" />
+        <TextView
+            android:id="@+id/textPerNight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="Per Night"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:id="@+id/textPerNight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="Per Night"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-            <TextView
-                android:id="@+id/textPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$196"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/textPerNight"
-                app:layout_constraintRight_toRightOf="@id/textPerNight" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/textPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$196"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textPerNight"
+            app:layout_constraintRight_toRightOf="@id/textPerNight" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

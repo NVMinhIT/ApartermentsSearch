@@ -64,10 +64,6 @@ class Util {
             val kmInDec: Int = Integer.valueOf(newFormat.format(km))
             val meter = valueResult % 1000
             val meterInDec: Int = Integer.valueOf(newFormat.format(meter))
-            Log.i(
-                "location", "" + valueResult + "   KM  " + kmInDec
-                        + " Meter   " + meterInDec
-            )
             return radius * c
         }
     }

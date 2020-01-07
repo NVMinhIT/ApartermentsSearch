@@ -20,7 +20,7 @@ class PlashActivity : AppCompatActivity() {
             val user = FirebaseAuth.getInstance().currentUser
             intent = if (user != null) {
                 Intent(this, ItemsListActivity::class.java)
-
+//                Intent(this, LoginActivity::class.java)
             } else {
                 Intent(this, LoginActivity::class.java)
             }

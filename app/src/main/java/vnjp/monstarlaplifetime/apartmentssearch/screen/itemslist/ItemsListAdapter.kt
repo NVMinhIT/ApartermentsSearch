@@ -24,7 +24,6 @@ class ItemsListAdapter(var query: FirebaseRecyclerOptions<Room>, val context: Co
     FirebaseRecyclerAdapter<Room, ItemsListAdapter.MyViewHolder>(query) {
 
     var onClick: ((Room, String) -> Unit)? = null
-    var getSizeRoom: ((Int) -> Unit)? = null
 
     companion object {
         const val BUNDLE_ID_ROOM = "BUNDLE_ID_ROOM"
@@ -33,7 +32,6 @@ class ItemsListAdapter(var query: FirebaseRecyclerOptions<Room>, val context: Co
     var isLike: Boolean = true
 
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int, p2: Room) {
-//        val current = listRoom[p1]
         p0.bind(p2)
     }
 
@@ -44,14 +42,6 @@ class ItemsListAdapter(var query: FirebaseRecyclerOptions<Room>, val context: Co
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.items_room, parent, false)
         return MyViewHolder(view)
-    }
-
-//    override fun getItemCount(): Int {
-//        //return listRoom.size
-//    }
-
-    fun getSize(): Int {
-        return snapshots.size
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
