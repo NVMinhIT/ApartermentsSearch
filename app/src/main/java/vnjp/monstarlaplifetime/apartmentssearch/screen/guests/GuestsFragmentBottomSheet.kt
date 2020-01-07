@@ -2,9 +2,11 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.guests
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
@@ -14,10 +16,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import java.util.*
+import vnjp.monstarlaplifetime.apartmentssearch.utils.CacheManager
 
 @Suppress("DEPRECATION")
-class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListener{
+class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListener {
     private lateinit var imbPlusAdults: ImageButton
     private lateinit var imbPlusChildren: ImageButton
     private lateinit var imbPlusInfants: ImageButton
@@ -28,6 +30,9 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
     private lateinit var tvAccountAdults: TextView
     private lateinit var tvAccountChildren: TextView
     private lateinit var tvAccountInfants: TextView
+    private var isFirst: Boolean = false
+    private lateinit var tvReset: TextView
+    private lateinit var btApply: Button
 
 
     override fun onCreateView(
@@ -52,6 +57,8 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
         tvAccountAdults = view.findViewById(R.id.tvAccountAdults)
         tvAccountChildren = view.findViewById(R.id.tvAccountChildren)
         tvAccountInfants = view.findViewById(R.id.tvAccountInfants)
+        tvReset = view.findViewById(R.id.tvReset)
+        btApply = view.findViewById(R.id.btApply)
 
 
     }
@@ -63,6 +70,8 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
         imbMinusChildren.setOnClickListener(this)
         imbPlusInfants.setOnClickListener(this)
         imbMinusInfants.setOnClickListener(this)
+        tvReset.setOnClickListener(this)
+        btApply.setOnClickListener(this)
 
 
     }
@@ -99,6 +108,7 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
         return d
     }
 
+    var getGuest: ((String) -> Unit)? = null
     override fun onClick(v: View?) {
         var accountAdult: Int = tvAccountAdults.text.toString().toInt()
         var accountChildren: Int = tvAccountChildren.text.toString().toInt()
@@ -128,12 +138,14 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
                         )
                     )
                     //imbMinusAdults.isClickable = false
+
                 } else if (accountAdult < 0 && accountPeople < 0) {
                     accountAdult = 0
                     accountPeople = 0
                 }
                 tvAccountAdults.setText(accountAdult.toString())
                 tvAccountPeople.setText(accountPeople.toString())
+
             }
 
             R.id.imbPlusChildren -> {
@@ -162,6 +174,7 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
                 } else if (accountChildren < 0 && accountPeople < 0) {
                     accountChildren = 0
                     accountPeople = 0
+
                 }
                 tvAccountChildren.setText(accountChildren.toString())
                 tvAccountPeople.setText(accountPeople.toString())
@@ -178,6 +191,7 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
                         R.drawable.ic_feather_minus_circle
                     )
                 )
+
             }
             R.id.imbMinusInfants -> {
                 --accountInfants
@@ -189,16 +203,49 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
                             R.drawable.ic_feather_minus_circle_hint
                         )
                     )
+
                     //imbMinusInfants.isClickable = false
                 } else if (accountInfants < 0 && accountPeople < 0) {
                     accountInfants = 0
                     accountPeople = 0
+
                 }
                 tvAccountInfants.setText(accountInfants.toString())
                 tvAccountPeople.setText(accountPeople.toString())
             }
+            R.id.tvReset -> {
+                tvAccountPeople.text = "0"
+                tvAccountChildren.text = "0"
+                imbMinusChildren.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this.requireContext(),
+                        R.drawable.ic_feather_minus_circle_hint
+                    )
+                )
+                tvAccountAdults.text = "0"
+                imbMinusAdults.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this.requireContext(),
+                        R.drawable.ic_feather_minus_circle_hint
+                    )
+                )
+                tvAccountInfants.text = "0"
+                imbMinusInfants.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this.requireContext(),
+                        R.drawable.ic_feather_minus_circle_hint
+                    )
+                )
+            }
+            R.id.btApply -> {
+                val s = tvAccountPeople.text.toString()
+                Log.d("MINH", s)
+                s.let { getGuest?.invoke(it) }
+                CacheManager.cacheManager?.cacheNumberPeople(s)
+                dialog?.dismiss()
+
+            }
         }
     }
-
 
 }

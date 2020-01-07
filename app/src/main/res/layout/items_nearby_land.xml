@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_xmin"
+    android:layout_marginBottom="@dimen/margin_xmin"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayoutOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNearby"
+        tools:ignore="UnknownIdInLayout">
+
+        <ImageView
+            android:id="@+id/imgTick"
+            android:layout_width="@dimen/icon_small"
+            android:layout_height="@dimen/icon_small"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/margin_left_normal"
+            android:layout_marginLeft="@dimen/margin_left_normal"
+            android:src="@drawable/ic_feather_check"
+            tools:ignore="ContentDescription,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/tvNameRoomNearby"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginStart="@dimen/margin_min"
+            android:layout_marginLeft="@dimen/margin_min"
+            android:layout_toEndOf="@+id/imgTick"
+            android:layout_toRightOf="@+id/imgTick"
+            android:text="@string/columbia_road_flower_market"
+            android:textColor="#333333"
+            android:textSize="@dimen/text_x_small"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/tvMi"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="@dimen/margin_min"
+            android:layout_marginLeft="@dimen/margin_min"
+            android:layout_marginEnd="@dimen/margin_left_normal"
+            android:layout_marginRight="@dimen/margin_left_normal"
+            android:text="@string/mi"
+            android:textColor="#9fa5b4"
+            android:textSize="@dimen/text_x_small"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginStart="@dimen/margin_min"
+            android:layout_marginLeft="@dimen/margin_min"
+            android:layout_toLeftOf="@+id/tvMi"
+            android:text="@string/_0_5"
+            android:textColor="#9fa5b4"
+            android:textSize="@dimen/text_x_small"
+            tools:ignore="RelativeOverlap,RtlHardcoded" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

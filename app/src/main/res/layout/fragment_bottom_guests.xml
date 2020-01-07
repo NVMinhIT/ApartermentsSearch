@@ -140,12 +140,12 @@
             tools:ignore="RtlHardcoded" />
 
         <ImageButton
+            android:id="@+id/imbMinusAdults"
             android:layout_width="@dimen/icon_xx_small"
             android:layout_height="@dimen/icon_xx_small"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_min"
             android:layout_marginRight="@dimen/margin_min"
-            android:id="@+id/imbMinusAdults"
             android:layout_toStartOf="@+id/tvAccountAdults"
             android:layout_toLeftOf="@+id/tvAccountAdults"
             android:background="@null"
@@ -228,6 +228,7 @@
             tools:ignore="RtlHardcoded" />
 
         <ImageButton
+            android:id="@+id/imbMinusChildren"
             android:layout_width="@dimen/icon_xx_small"
             android:layout_height="@dimen/icon_xx_small"
             android:layout_centerVertical="true"
@@ -236,7 +237,6 @@
             android:layout_toStartOf="@+id/tvAccountChildren"
             android:layout_toLeftOf="@+id/tvAccountChildren"
             android:background="@null"
-            android:id="@+id/imbMinusChildren"
             android:src="@drawable/ic_feather_minus_circle_hint"
             tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -250,9 +250,9 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/contentRelativeLayoutInfants"
         android:layout_width="@dimen/layout_width_max"
         android:layout_height="@dimen/layout_height"
-        android:id="@+id/contentRelativeLayoutInfants"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AccountChildren"
@@ -316,6 +316,7 @@
             tools:ignore="RtlHardcoded" />
 
         <ImageButton
+            android:id="@+id/imbMinusInfants"
             android:layout_width="@dimen/icon_xx_small"
             android:layout_height="@dimen/icon_xx_small"
             android:layout_centerVertical="true"
@@ -324,7 +325,6 @@
             android:layout_toStartOf="@+id/tvAccountInfants"
             android:layout_toLeftOf="@+id/tvAccountInfants"
             android:background="@null"
-            android:id="@+id/imbMinusInfants"
             android:src="@drawable/ic_feather_minus_circle_hint"
             tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -338,27 +338,27 @@
     <RelativeLayout
         android:layout_width="@dimen/layout_width_normal"
         android:layout_height="@dimen/layout_height_normal"
-        android:layout_marginBottom="@dimen/margin_normal"
         android:layout_marginTop="57dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_normal"
         android:background="@drawable/bg_button_click"
-        app:layout_constraintTop_toBottomOf="@+id/contentRelativeLayoutInfants"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contentRelativeLayoutInfants">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tvReset"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/margin_xxxnormal"
-            android:layout_marginLeft="@dimen/margin_xxxnormal"
             android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_xxxnormal"
             android:text="@string/reset"
             android:textColor="@color/color_text_blue"
             android:textSize="@dimen/text_x_normal"
             android:textStyle="bold"
-            tools:ignore="RelativeOverlap" />
+            tools:ignore="RelativeOverlap,RtlHardcoded,RtlSymmetry" />
 
         <Button
             android:layout_width="@dimen/button_width"
@@ -367,6 +367,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/bg_button_action"
             android:text="@string/apply"
+            android:id="@+id/btApply"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/color_text_white"

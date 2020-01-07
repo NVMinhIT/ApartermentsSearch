@@ -21,7 +21,7 @@ data class Room(
     @PropertyName("name")
     var name: String? = null,
     @PropertyName("nearby_landmark")
-    var nearby_landmark: ArrayList<NearbyLandmark>? = null,
+    var nearby_landmark: List<NearbyLandmark>? = null,
     @PropertyName("price")
     var price: Float? = null,
     @PropertyName("rules")
