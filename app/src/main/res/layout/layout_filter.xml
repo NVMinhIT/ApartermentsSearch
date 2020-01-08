@@ -73,6 +73,7 @@
             android:drawableStart="@drawable/icon_map_pin"
             android:drawableLeft="@drawable/icon_map_pin"
             android:drawablePadding="5dp"
+            android:onClick="onClick"
             android:padding="10dp"
             android:text="@string/textNearby"
             android:textColor="#435582"
@@ -122,7 +123,7 @@
             android:id="@+id/textPriceRange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Price Range:"
             android:textColor="#626b80"
             android:textSize="17sp"
@@ -164,31 +165,35 @@
             app:layout_constraintLeft_toLeftOf="@id/textPriceRange"
             app:layout_constraintTop_toBottomOf="@id/textPriceRange" />
 
-        <com.stfalcon.pricerangebar.RangeBarWithChart
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
+        <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+            android:id="@+id/rangeBar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:barActiveLineColor="#6e93f1"
-            app:barActiveThumbColor="@android:color/holo_blue_light"
-            app:barActiveTickRadius="@dimen/custom_active_tick_radius"
-            app:barChartSelectedBackgroundColor="#3F51B5"
-            app:barChartUnselectedBackgroundColor="#0c6e93f1"
-            app:barLineColor="#9fa5b4"
+            android:layout_margin="8dp"
+            app:bar_color="#8990C4"
+            app:bar_highlight_color="#2434AD"
+            app:corner_radius="3"
+            app:data_type="_integer"
+            app:gap="20"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textPriceAvg" />
+            app:layout_constraintTop_toBottomOf="@id/textPriceAvg"
+            app:left_thumb_color="#1A246D"
+            app:left_thumb_color_pressed="#030B47"
+            app:right_thumb_color="#1A246D"
+            app:right_thumb_color_pressed="#030B47" />
 
         <TextView
             android:id="@+id/textHomeType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Home Type"
             android:textColor="#626b80"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="@id/textPriceRange"
-            app:layout_constraintTop_toBottomOf="@id/seekBar" />
+            app:layout_constraintTop_toBottomOf="@id/rangeBar" />
 
         <CheckBox
             android:id="@+id/checkEntirePlace"
@@ -296,7 +301,7 @@
             android:id="@+id/textShareRoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hotel Room"
+            android:text="Share Room"
             android:textColor="#333333"
             android:textSize="17sp"
             android:textStyle="bold"

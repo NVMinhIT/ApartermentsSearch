@@ -3,6 +3,7 @@ package vnjp.monstarlaplifetime.apartmentssearch.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Rent
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.User
 
 class UserRepositoryImpl(
     private val userDatabaseReference: DatabaseReference,
@@ -75,7 +76,7 @@ class UserRepositoryImpl(
 
     override fun addRent(
         userKey: String,
-        rentKey: String,
+        roomKey: String,
         rent: Rent,
         onAddResponse: (isSuccess: Boolean, message: String) -> Unit
     ) {
@@ -83,8 +84,7 @@ class UserRepositoryImpl(
         var result: Boolean
 
         userDatabaseReference.child(userKey)
-            .child("rents")
-            .push()
+            .child(roomKey)
             .setValue(rent)
             .addOnSuccessListener {
                 message = "Remove successfully"
