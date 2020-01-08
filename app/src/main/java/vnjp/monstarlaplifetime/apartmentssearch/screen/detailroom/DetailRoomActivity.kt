@@ -247,17 +247,17 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.heart -> {
                 Toast.makeText(this@DetailRoomActivity, "Yêu thích", Toast.LENGTH_SHORT).show()
-               // Log.d("hihi","HIHI")
-                return true
+                // Log.d("hihi","HIHI")
+                true
             }
             R.id.share -> {
                 Toast.makeText(this@DetailRoomActivity, "Chia sẻ", Toast.LENGTH_SHORT).show()
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
 
     }
