@@ -3,6 +3,7 @@ package vnjp.monstarlaplifetime.apartmentssearch.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Rent
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.User
 
 class UserRepositoryImpl(
     private val userDatabaseReference: DatabaseReference,
