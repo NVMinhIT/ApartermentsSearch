@@ -2,7 +2,6 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.guests
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import org.greenrobot.eventbus.EventBus
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import vnjp.monstarlaplifetime.apartmentssearch.data.Commons
+import vnjp.monstarlaplifetime.apartmentssearch.utils.CacheManager
+import vnjp.monstarlaplifetime.apartmentssearch.utils.Commons
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -28,6 +28,9 @@ class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
     private var calendarView: DateRangeCalendarView? = null
     private var dDay: String? = null
     private lateinit var textApply: TextView
+    private var checkInDate: String? = null
+    private var checkOutDate: String? = null
+
 
     fun newInstance(): DateRangPickerBottomSheet {
         return DateRangPickerBottomSheet()
@@ -64,7 +67,9 @@ class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
                 val day = StringBuffer()
                 day.append(dCheckIn).append(" - ").append(dCheckOut)
                 dDay = day.toString()
-                Log.d("HIHI", "${dDay}")
+                checkInDate = Commons.getDateTimeCurrent(startDate.time)
+                checkOutDate = Commons.getDateTimeCurrent(endDate.time)
+
 
             }
 
@@ -78,6 +83,9 @@ class DateRangPickerBottomSheet : BottomSheetDialogFragment() {
         textApply.setOnClickListener {
             EventBus.getDefault().post(dDay)
             dialog?.dismiss()
+            CacheManager.cacheManager?.cacheAccountDay(tvNumberDay.text.toString())
+            checkInDate?.let { it1 -> CacheManager.cacheManager?.cacheCheckInDate(it1) }
+            checkOutDate?.let { it1 -> CacheManager.cacheManager?.cacheCheckOutDate(it1) }
 
         }
     }

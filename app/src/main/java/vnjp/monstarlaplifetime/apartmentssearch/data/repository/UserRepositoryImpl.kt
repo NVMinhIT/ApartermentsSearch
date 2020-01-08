@@ -75,7 +75,7 @@ class UserRepositoryImpl(
 
     override fun addRent(
         userKey: String,
-        rentKey: String,
+        roomKey: String,
         rent: Rent,
         onAddResponse: (isSuccess: Boolean, message: String) -> Unit
     ) {
@@ -83,11 +83,10 @@ class UserRepositoryImpl(
         var result: Boolean
 
         userDatabaseReference.child(userKey)
-            .child("rents")
-            .push()
+            .child(roomKey)
             .setValue(rent)
             .addOnSuccessListener {
-                message = "Remove successfully"
+                message = "add successfully"
                 result = true
                 onAddResponse.invoke(result, message!!)
             }.addOnFailureListener {

@@ -3,6 +3,7 @@ package vnjp.monstarlaplifetime.apartmentssearch.utils.Sharedprf
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.util.*
 
@@ -66,6 +67,27 @@ class SharedPrefsImpl(context: Context) : SharedPrefsApi {
         sharedPreferences.edit().clear().apply()
     }
 
+    fun <T> putObject(key: String, y: T) {
+        //Convert object to JSON String.
+        val inString = gson.toJson(y)
+        //Save that String in SharedPreferences
+        val editor = sharedPreferences.edit()
+        editor.putString(key, inString).apply()
+    }
+
+    fun <T> getObject(key: String, c: Class<T>): T? {
+        //We read JSON String which was saved.
+        val value = sharedPreferences.getString(key, null)
+        if (value != null) {
+            //JSON String was found which means object can be read.
+            //We convert this JSON String to model object. Parameter "c" (of
+            return gson.fromJson(value, c)
+        } else {
+            //No JSON String with this key was found which means key is invalid or object was not saved.
+            throw IllegalArgumentException("No object with key: $key was saved")
+        }
+    }
+
     /**
      * Phương thức lấy danh sách đối tượng từ string json từ SharePref
      * @param <T>   - Kiểu đối tượng
@@ -89,6 +111,7 @@ class SharedPrefsImpl(context: Context) : SharedPrefsApi {
 
     companion object {
         private const val PREFS_NAME = "Apartments Search"
+        private val gson = GsonBuilder().create()
     }
 
     init {

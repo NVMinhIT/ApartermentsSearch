@@ -2,20 +2,17 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.guests
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vnjp.monstarlaplifetime.apartmentssearch.R
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.TotalGuest
 import vnjp.monstarlaplifetime.apartmentssearch.utils.CacheManager
 
 @Suppress("DEPRECATION")
@@ -239,11 +236,24 @@ class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListe
             }
             R.id.btApply -> {
                 val s = tvAccountPeople.text.toString()
-                Log.d("MINH", s)
-                s.let { getGuest?.invoke(it) }
-                CacheManager.cacheManager?.cacheNumberPeople(s)
-                dialog?.dismiss()
-
+                if (s.equals("0")) {
+                    Toast.makeText(
+                        this.requireContext(),
+                        "Please, Choose People",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    s.let { getGuest?.invoke(it) }
+                    CacheManager.cacheManager?.cacheNumberPeople(s)
+                    val total = TotalGuest(
+                        tvAccountAdults.text.toString().toInt(),
+                        tvAccountChildren.text.toString().toInt(),
+                        tvAccountInfants.text.toString().toInt(),
+                        tvAccountPeople.text.toString().toInt()
+                    )
+                    CacheManager.cacheManager?.cacheObjectTotalGuest(total)
+                    dialog?.dismiss()
+                }
             }
         }
     }

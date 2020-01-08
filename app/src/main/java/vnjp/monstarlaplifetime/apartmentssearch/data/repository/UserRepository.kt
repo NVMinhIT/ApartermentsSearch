@@ -25,7 +25,7 @@ interface UserRepository {
 
     fun addRent(
         userKey: String,
-        rentKey: String,
+        roomKey: String,
         rent: Rent,
         onAddResponse: (isSuccess: Boolean, message: String) -> Unit
     )
