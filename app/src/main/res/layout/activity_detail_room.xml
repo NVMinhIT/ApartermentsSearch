@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/AppBarLayout"
@@ -16,7 +18,6 @@
             android:id="@+id/htab_collapse_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
@@ -29,14 +30,18 @@
                 android:src="@drawable/anim_sllide_show"
                 tools:ignore="ContentDescription" />
 
-
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_gravity="top"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="top"
+                android:clickable="true"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/myTheme.ActionBar.Text">
+                app:popupTheme="@style/myTheme.ActionBar.Text"
+                android:focusable="true">
 
                 <TextView
                     android:id="@+id/textToolbarTitle"
@@ -57,10 +62,10 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:background="@drawable/bg_layout_constrainlayout"
-        android:clipToPadding="false"
         android:layout_height="match_parent"
         android:layout_marginTop="-8dp"
+        android:background="@drawable/bg_layout_constrainlayout"
+        android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -136,13 +141,13 @@
                     tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
+                    android:id="@+id/tvNumberReviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/margin_min"
                     android:layout_marginLeft="@dimen/margin_min"
                     android:text="@string/_12"
-                    android:id="@+id/tvNumberReviews"
                     android:textSize="@dimen/text_x_normal"
                     android:textStyle="bold" />
 
@@ -180,13 +185,13 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:id="@+id/tvNumberRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/margin_min"
                     android:layout_marginLeft="@dimen/margin_min"
                     android:text="@string/_12"
-                    android:id="@+id/tvNumberRating"
                     android:textSize="@dimen/text_x_normal"
                     android:textStyle="bold" />
 
@@ -261,16 +266,16 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvListAmenities"
                 tools:ignore="RtlHardcoded" />
-         <androidx.recyclerview.widget.RecyclerView
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:id="@+id/rvListDistance"
-             app:layout_constraintLeft_toLeftOf="parent"
-             android:layout_marginTop="@dimen/margin_xmin"
-             app:layout_constraintRight_toRightOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/tvNearby"
-             app:layout_constraintBottom_toTopOf="@+id/tvLocation"
-             />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_xmin"
+                app:layout_constraintBottom_toTopOf="@+id/tvLocation"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNearby" />
 
 
             <TextView
@@ -428,6 +433,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imbCancellationMore">
 
                 <TextView
+                    android:id="@+id/tvNumberDayNight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -441,7 +447,8 @@
                     android:textStyle="bold"
                     tools:ignore="RelativeOverlap,RtlHardcoded" />
 
-                <Button
+                <TextView
+                    android:id="@+id/tvBookNow"
                     android:layout_width="@dimen/button_max"
                     android:layout_height="@dimen/layout_height_normal"
                     android:layout_alignParentEnd="true"
@@ -459,6 +466,7 @@
                     tools:ignore="RtlCompat,RtlHardcoded,RtlSymmetry" />
 
                 <Button
+                    android:id="@+id/btPriceRoom"
                     android:layout_width="76dp"
                     android:layout_height="@dimen/layout_height_normal"
                     android:layout_centerInParent="true"

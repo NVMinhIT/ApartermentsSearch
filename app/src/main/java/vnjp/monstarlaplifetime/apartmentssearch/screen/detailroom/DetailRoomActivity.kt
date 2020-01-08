@@ -8,16 +8,17 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,8 +30,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.Task
 import com.google.android.material.appbar.AppBarLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_detail_room.*
@@ -39,12 +40,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.NearbyLandmark
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Rent
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.TotalGuest
 import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
+import vnjp.monstarlaplifetime.apartmentssearch.data.repository.UserRepository
+import vnjp.monstarlaplifetime.apartmentssearch.data.repository.UserRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.NearByLandAdapter
 import vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist.ItemsListAdapter
+import vnjp.monstarlaplifetime.apartmentssearch.utils.CacheManager
 
+@Suppress("UsePropertyAccessSyntax")
 class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     lateinit var toolbar: Toolbar
@@ -66,24 +73,41 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var recyclerViewNearBy: RecyclerView
     private var listNearBy: MutableList<NearbyLandmark> = mutableListOf()
     private lateinit var room: Room
-
+    private lateinit var tvNumberDayNight: TextView
+    private lateinit var btPriceRoom: Button
+    lateinit var firebaseAuth: FirebaseAuth
+    lateinit var databaseReferenceBook: DatabaseReference
+    lateinit var userRepository: UserRepository
+    lateinit var tvBookNow: TextView
+    private var latitude: Double? = null
+    private var longtitude: Double? = null
 
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 1000
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
         setContentView(R.layout.activity_detail_room)
+        mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         room = Room()
         databaseReference = FirebaseDatabase.getInstance().getReference("rooms")
+        firebaseAuth = FirebaseAuth.getInstance()
+        userRepository =
+            UserRepositoryImpl(FirebaseDatabase.getInstance().getReference("users"), firebaseAuth)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent.extras?.let {
             idRoom = it.getString(ItemsListAdapter.BUNDLE_ID_ROOM)
-
-
         }
-
         CoroutineScope(Dispatchers.Main).launch {
             val roomRepository = RoomRepositoryImpl(databaseReference)
             idRoom?.let {
@@ -92,8 +116,8 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
                     onDataLoaded = {
                         room = it
                         Log.d("MINHMOM", room.name.toString())
-                        //tvNameRoomDetail.setText(room.name.toString())
                         initData()
+                        mapFragment.getMapAsync(this@DetailRoomActivity)
                     },
                     onException = {
                         Log.d("firebase", "on data load $it")
@@ -101,15 +125,14 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
         }
-
         initView()
         initEvent()
-
     }
 
     private fun initData() {
+        latitude = room.address?.latitude
+        longtitude = room.address?.longtitude
         tvNameRoomDetail.setText(room.name.toString())
-        Log.d("hihi", "${room.name}")
         tvAddress.setText(room.address?.address_name)
         room.comments?.size?.let { tvNumberReviews.setText(it.toString()) }
         room.comments?.size?.let { tvNumberRating.setText(it.toString()) }
@@ -121,30 +144,36 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         listNearBy.clear()
         room.nearby_landmark?.let { listNearBy.addAll(it) }
         nearByLandAdapter.setListNearbyLandmark(listNearBy)
-
-
+        val day = CacheManager.cacheManager?.getAccountDay()
+        val numberDay = "<b>${day}</b> night stay "
+        val priceAday: Int = room.price!!.toInt()
+        val price: Int = day!!.toInt()
+        val priceRoom: Int = priceAday * price
+        tvNumberDayNight.setText(Html.fromHtml(numberDay, Html.FROM_HTML_MODE_LEGACY))
+        val PriceDay = StringBuffer()
+        PriceDay.append("$").append(priceRoom.toString())
+        btPriceRoom.setText(PriceDay)
     }
 
     private fun initView() {
         toolbar = findViewById(R.id.toolbar)
         toolbarTitle = toolbar.findViewById(R.id.textToolbarTitle)
         imgRoomShow = findViewById(R.id.imgRoomShow)
+        tvNumberDayNight = findViewById(R.id.tvNumberDayNight)
+        tvBookNow = findViewById(R.id.tvBookNow)
         animationDrawable = imgRoomShow.drawable as AnimationDrawable
         animationDrawable.start()
-        mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        mapFragment.getMapAsync(this@DetailRoomActivity)
         recyclerView = findViewById(R.id.rvListAmenities)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         recyclerView.layoutManager = GridLayoutManager(this, 4)
         recyclerView.setHasFixedSize(true)
         amenitiesAdapter = AmenitiesAdapter(this)
         recyclerView.adapter = amenitiesAdapter
+        btPriceRoom = findViewById(R.id.btPriceRoom)
         val tvContentRule: TextView = findViewById(R.id.tvContentRule)
         tvContentRule.setLineSpacing(3F, 1.5f)
         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
         toolbar.inflateMenu(R.menu.menu_detail)
-
         //nearbyLandmark
         recyclerViewNearBy = findViewById(R.id.rvListDistance)
         recyclerViewNearBy.layoutManager = LinearLayoutManager(this)
@@ -155,7 +184,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
 
     @SuppressLint("SetTextI18n")
     private fun initEvent() {
-
+        // event AppBarLayout
         AppBarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             @SuppressLint("ResourceAsColor")
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State) {
@@ -165,6 +194,13 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
                         toolbar.setBackgroundColor(getColor(R.color.color_text_white))
                         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__dark)
                         toolbarTitle.setText(room.name.toString())
+                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                        window.setStatusBarColor(
+                            ContextCompat.getColor(
+                                this@DetailRoomActivity,
+                                R.color.color_text_white
+                            )
+                        );
                     }
                     else -> {
                         toolbarTitle.visibility = View.INVISIBLE
@@ -178,89 +214,110 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+        val userKey = FirebaseAuth.getInstance().currentUser?.uid
+        val totalGuest: TotalGuest = CacheManager.cacheManager!!.getTotalGuest()
+        val dataCheckIn = CacheManager.cacheManager!!.getCheckInDate()
+        val dataCheckOut = CacheManager.cacheManager!!.getCheckOutDate()
+        val rent = Rent(dataCheckIn, dataCheckOut, totalGuest)
+        tvBookNow.setOnClickListener {
+
+            userRepository.addRent(
+                userKey!!,
+                idRoom!!,
+                rent,
+                onAddResponse = { isComplete, message ->
+                    if (isComplete) {
+                        finish()
+                        Toast.makeText(this, "BookRoom SuccessFull, Thanks", Toast.LENGTH_LONG)
+                            .show()
+                        Log.d("errow", message)
+                    } else {
+                        Toast.makeText(this, "Book Room not SuccessFull", Toast.LENGTH_LONG).show()
+                    }
+
+                })
+        }
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_detail, menu)
-        return super.onCreateOptionsMenu(menu)
+        val inflater: MenuInflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_detail, menu);
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.heart -> {
-                Toast.makeText(this, "Yêu thích", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DetailRoomActivity, "Yêu thích", Toast.LENGTH_SHORT).show()
+               // Log.d("hihi","HIHI")
                 return true
             }
             R.id.share -> {
-                Toast.makeText(this, "Chia sẻ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@DetailRoomActivity, "Chia sẻ", Toast.LENGTH_SHORT).show()
                 return true
             }
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val sydney: LatLng = LatLng((-34).toDouble(), 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(13f), 2000, null)
-        // geocoder = Geocoder(this@DetailRoomActivity)
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isZoomGesturesEnabled = true
         mMap.uiSettings.isRotateGesturesEnabled = true
         mMap.uiSettings.isCompassEnabled = true
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        mMap.uiSettings.isMyLocationButtonEnabled = true
-        //getCurrentLocationNoMove()
-        //checkPermisstion()
+        checkPermisstion()
+    }
+
+    private fun getDeviceLocation() {
+        val address: LatLng = LatLng(latitude!!, longtitude!!)
+        mMap.addMarker(MarkerOptions().position(address).title("Position"))
+        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(address, 13f)
+        mMap.animateCamera(cameraUpdate)
     }
 
     @SuppressLint("ObsoleteSdkInt")
     private fun checkPermisstion() {
+        //version hien tai cua may
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val isAccept = ActivityCompat.checkSelfPermission(
-                applicationContext,
+                this.applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
+            //check xem thu permision da dc chap nhan chua
             if (isAccept == PackageManager.PERMISSION_DENIED) {
                 requestPermissions(
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     100
                 )
             } else {
-                //startMap()
+                startMap()
             }
         } else {
-            //startMap()
+            startMap()
         }
     }
 
+    private fun startMap() {
+        getDeviceLocation()
+        mMap.setMyLocationEnabled(true)
+    }
 
-    private fun getDeviceLocation() {
-        val locationResult: Task<Location>? =
-            mFusedLocationProviderClient?.getLastLocation()
-        locationResult?.addOnCompleteListener(
-            this
-        ) { task ->
-            if (task.isSuccessful) {
-                mLastKnownLocation = task.result
-                val target = LatLng(
-                    mLastKnownLocation!!.latitude
-                    , mLastKnownLocation!!.longitude
-                )
-                val mark = MarkerOptions()
-                    .title("Position.")
-                    .position(target)
-                mMap.addMarker(mark)
-                val cameraUpdate = CameraUpdateFactory.newLatLngZoom(target, 13f)
-                mMap.animateCamera(cameraUpdate)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            100 -> if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                return
             } else {
-                Toast.makeText(this@DetailRoomActivity, "problem here", Toast.LENGTH_SHORT).show()
+                startMap()
             }
+            else -> startMap()
         }
     }
-
 }

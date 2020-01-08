@@ -17,7 +17,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name=".screen.filter.FilterActivity"></activity>
+        <activity android:name=".screen.filter.FilterActivity">
+
+        </activity>
         <activity android:name=".screen.PlashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,11 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".screen.authentication.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".screen.authentication.RegisterActivity" />
         <!--

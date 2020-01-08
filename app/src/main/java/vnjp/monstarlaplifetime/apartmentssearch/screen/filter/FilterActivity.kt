@@ -107,5 +107,6 @@ class FilterActivity : AppCompatActivity(), View.OnClickListener {
                 else R.drawable.bg_hightes_rate
             )
         })
+
     }
 }

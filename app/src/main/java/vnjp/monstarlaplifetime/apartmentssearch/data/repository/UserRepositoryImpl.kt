@@ -87,7 +87,7 @@ class UserRepositoryImpl(
             .child(roomKey)
             .setValue(rent)
             .addOnSuccessListener {
-                message = "Remove successfully"
+                message = "add successfully"
                 result = true
                 onAddResponse.invoke(result, message!!)
             }.addOnFailureListener {

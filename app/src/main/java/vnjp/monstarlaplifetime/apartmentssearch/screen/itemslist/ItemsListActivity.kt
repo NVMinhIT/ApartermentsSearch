@@ -47,6 +47,10 @@ class ItemsListActivity : AppCompatActivity() {
         initEvent()
     }
 
+    companion object {
+        const val LATITUDE = "LATITUDE"
+        const val LONG_TITUDE = "LONG_TITUDE"
+    }
 
     override fun onStart() {
         super.onStart()
@@ -75,7 +79,7 @@ class ItemsListActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 val size = p0.childrenCount
                 val number = "<b>${size}</b> rooms "
-                tvNumberRoom.setText(Html.fromHtml(number, Html.FROM_HTML_MODE_LEGACY))
+                tvNumberRoom.text = Html.fromHtml(number, Html.FROM_HTML_MODE_LEGACY)
 
             }
 
@@ -101,7 +105,7 @@ class ItemsListActivity : AppCompatActivity() {
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     fun onEvent(sDay: String) {
-        btCalendar.setText(sDay)
+        btCalendar.text = sDay
 
     }
 
@@ -109,12 +113,12 @@ class ItemsListActivity : AppCompatActivity() {
         btGuest.setOnClickListener {
             val bottomSheetFragment =
                 GuestsFragmentBottomSheet()
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.getTag())
+            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
             val numberPeople = StringBuffer()
 
             bottomSheetFragment.getGuest = {
-                numberPeople.append(it).append(" people ")
-                btGuest.setText(numberPeople)
+                numberPeople.append(it).append(" guests ")
+                btGuest.text = numberPeople
             }
         }
         btFilter.setOnClickListener {
@@ -127,7 +131,7 @@ class ItemsListActivity : AppCompatActivity() {
         btCalendar.setOnClickListener {
             val bottomSheetFragment =
                 DateRangPickerBottomSheet()
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.getTag())
+            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
 
 
