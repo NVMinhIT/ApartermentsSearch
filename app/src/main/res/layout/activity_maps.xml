@@ -38,7 +38,14 @@
             android:scaleType="fitXY"
             android:src="@drawable/room"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_image_room"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/textRoomName"
@@ -46,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
-            android:text="Cozy Victorian Apartment in Islington"
+            android:text="@string/name_room"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/imageRoom"
@@ -56,9 +63,9 @@
             android:id="@+id/textPerNight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:text="Per Night"
+            android:text="@string/per_night"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -67,7 +74,7 @@
             android:id="@+id/textPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$196"
+            android:text="@string/_196"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/textPerNight"

@@ -52,12 +52,12 @@
             android:textSize="@dimen/text_small" />
 
         <ImageButton
+            android:id="@+id/imbLike"
             android:layout_width="@dimen/layout_width_small"
             android:layout_height="@dimen/layout_width_small"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_top_min"
             android:background="@null"
-            android:id="@+id/imbLike"
             android:src="@drawable/ic_favorite_hint"
             tools:ignore="ContentDescription" />
     </LinearLayout>
@@ -82,21 +82,26 @@
             android:src="@drawable/room"
             tools:ignore="ContentDescription,MissingPrefix" />
 
+        <View
+            android:layout_width="@dimen/size_normal_width"
+            android:layout_height="@dimen/layout_height_max"
+            android:background="@drawable/bg_image_room" />
+
         <TextView
             android:id="@+id/tvNameRoom"
             android:layout_width="220dp"
             android:layout_height="72dp"
-            android:singleLine="true"
-            android:gravity="bottom"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/margin_left_normal"
             android:layout_marginLeft="@dimen/margin_left_normal"
+            android:gravity="bottom"
             android:paddingBottom="@dimen/margin_xmin"
+            android:singleLine="true"
             android:text="@string/sunny_soho_flat"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
             android:textColor="@color/color_text_white"
             tools:ignore="RtlCompat" />
 
@@ -145,6 +150,7 @@
             android:textSize="@dimen/text_small"
             android:textStyle="bold"
             tools:ignore="RelativeOverlap" />
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

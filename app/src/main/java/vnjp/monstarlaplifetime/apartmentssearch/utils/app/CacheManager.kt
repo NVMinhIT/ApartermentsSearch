@@ -1,4 +1,4 @@
-package vnjp.monstarlaplifetime.apartmentssearch.utils
+package vnjp.monstarlaplifetime.apartmentssearch.utils.app
 
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.TotalGuest
 import vnjp.monstarlaplifetime.apartmentssearch.utils.Sharedprf.SharedPrefsImpl
@@ -20,51 +20,61 @@ object CacheManager {
     }
 
     fun cacheNumberPeople(name: String?) {
-        sharedPrefs!!.put(ACCOUNT_PEOPLE, name)
+        sharedPrefs!!.put(
+            ACCOUNT_PEOPLE, name)
     }
 
     fun getNumberPeople(): String? {
-        return sharedPrefs!!.get(ACCOUNT_PEOPLE, String::class.java)
+        return sharedPrefs!!.get(
+            ACCOUNT_PEOPLE, String::class.java)
     }
 
     fun cacheAccountDay(string: String) {
-        sharedPrefs!!.put(ACCOUNT_DAY, string)
+        sharedPrefs!!.put(
+            ACCOUNT_DAY, string)
     }
 
     fun getAccountDay(): String? {
-        return sharedPrefs!!.get(ACCOUNT_DAY, String::class.java)
+        return sharedPrefs!!.get(
+            ACCOUNT_DAY, String::class.java)
     }
 
     fun cacheObjectTotalGuest(total: TotalGuest) {
-        sharedPrefs!!.putObject(OBJECT_TOTAL_GUEST, total)
+        sharedPrefs!!.putObject(
+            OBJECT_TOTAL_GUEST, total)
     }
 
     fun getTotalGuest(): TotalGuest {
-        return sharedPrefs?.getObject(OBJECT_TOTAL_GUEST, TotalGuest::class.java)!!
+        return sharedPrefs?.getObject(
+            OBJECT_TOTAL_GUEST, TotalGuest::class.java)!!
     }
 
     fun cacheCheckInDate(sCheckIn: String) {
-        sharedPrefs!!.put(DATE_CHECKIN, sCheckIn)
+        sharedPrefs!!.put(
+            DATE_CHECKIN, sCheckIn)
 
     }
 
     fun getCheckInDate(): String {
-        return sharedPrefs!!.get(DATE_CHECKIN, String::class.java)!!
+        return sharedPrefs!!.get(
+            DATE_CHECKIN, String::class.java)!!
 
     }
 
     fun cacheCheckOutDate(sCheckOut: String) {
-        sharedPrefs!!.put(DATE_CHECKOUT, sCheckOut)
+        sharedPrefs!!.put(
+            DATE_CHECKOUT, sCheckOut)
 
     }
 
     fun getCheckOutDate(): String {
-        return sharedPrefs!!.get(DATE_CHECKOUT, String::class.java)!!
+        return sharedPrefs!!.get(
+            DATE_CHECKOUT, String::class.java)!!
 
     }
 
     operator fun invoke(sharedPrefsImpl: SharedPrefsImpl) {
-        this.sharedPrefs = sharedPrefsImpl
+        sharedPrefs = sharedPrefsImpl
         cacheManager = this
     }
 

@@ -49,7 +49,7 @@ import vnjp.monstarlaplifetime.apartmentssearch.data.repository.UserRepositoryIm
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.NearByLandAdapter
 import vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist.ItemsListAdapter
-import vnjp.monstarlaplifetime.apartmentssearch.utils.CacheManager
+import vnjp.monstarlaplifetime.apartmentssearch.utils.app.CacheManager
 
 @Suppress("UsePropertyAccessSyntax")
 class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -249,8 +249,8 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.heart -> {
-                Toast.makeText(this@DetailRoomActivity, "Yêu thích", Toast.LENGTH_SHORT).show()
-               // Log.d("hihi","HIHI")
+                //Toast.makeText(this@DetailRoomActivity, "Yêu thích", Toast.LENGTH_SHORT).show()
+                Log.d("hihi", "HIHI")
                 return true
             }
             R.id.share -> {

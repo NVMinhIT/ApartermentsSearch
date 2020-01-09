@@ -1,4 +1,4 @@
-package vnjp.monstarlaplifetime.apartmentssearch.utils
+package vnjp.monstarlaplifetime.apartmentssearch.utils.app
 
 import android.app.Application
 import vnjp.monstarlaplifetime.apartmentssearch.utils.Sharedprf.SharedPrefsImpl
@@ -7,7 +7,9 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         myApplication = this
-        CacheManager(SharedPrefsImpl(this))
+        CacheManager(
+            SharedPrefsImpl(this)
+        )
     }
 
     companion object {

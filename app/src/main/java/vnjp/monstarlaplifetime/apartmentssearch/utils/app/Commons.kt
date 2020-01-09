@@ -1,4 +1,4 @@
-package vnjp.monstarlaplifetime.apartmentssearch.utils
+package vnjp.monstarlaplifetime.apartmentssearch.utils.app
 
 import java.text.SimpleDateFormat
 import java.util.*

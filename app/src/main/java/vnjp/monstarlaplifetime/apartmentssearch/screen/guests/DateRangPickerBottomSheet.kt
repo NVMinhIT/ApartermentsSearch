@@ -15,8 +15,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import org.greenrobot.eventbus.EventBus
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import vnjp.monstarlaplifetime.apartmentssearch.utils.CacheManager
-import vnjp.monstarlaplifetime.apartmentssearch.utils.Commons
+import vnjp.monstarlaplifetime.apartmentssearch.utils.app.CacheManager
+import vnjp.monstarlaplifetime.apartmentssearch.utils.app.Commons
 import java.util.*
 import java.util.concurrent.TimeUnit
 

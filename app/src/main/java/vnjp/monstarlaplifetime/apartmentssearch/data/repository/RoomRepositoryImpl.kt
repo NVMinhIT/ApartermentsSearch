@@ -7,7 +7,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Comment
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.Util
+import vnjp.monstarlaplifetime.apartmentssearch.utils.Util
 import kotlin.collections.HashMap
 import kotlin.collections.set
 

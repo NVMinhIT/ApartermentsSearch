@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.TotalGuest
-import vnjp.monstarlaplifetime.apartmentssearch.utils.CacheManager
+import vnjp.monstarlaplifetime.apartmentssearch.utils.app.CacheManager
 
 @Suppress("DEPRECATION")
 class GuestsFragmentBottomSheet : BottomSheetDialogFragment(), View.OnClickListener {
