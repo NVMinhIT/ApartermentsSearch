@@ -4,8 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
-import android.location.Geocoder
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -19,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,20 +32,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_detail_room.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.NearbyLandmark
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Rent
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.TotalGuest
-import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
-import vnjp.monstarlaplifetime.apartmentssearch.data.repository.UserRepository
-import vnjp.monstarlaplifetime.apartmentssearch.data.repository.UserRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.AmenitiesAdapter
 import vnjp.monstarlaplifetime.apartmentssearch.screen.adapter.NearByLandAdapter
 import vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist.ItemsListAdapter
@@ -56,80 +48,63 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     lateinit var toolbar: Toolbar
     private lateinit var toolbarTitle: TextView
-    private lateinit var geocoder: Geocoder
-    private var mLastKnownLocation: Location? = null
+    private lateinit var title: String
     private lateinit var animationDrawable: AnimationDrawable
     private lateinit var imgRoomShow: ImageView
-    var locations: List<LatLng> = java.util.ArrayList()
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
-    private var mLocationPermissionsGranted = false
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var amenitiesAdapter: AmenitiesAdapter
     private lateinit var recyclerView: RecyclerView
     private var idRoom: String? = null
-    private lateinit var databaseReference: DatabaseReference
     private var listAmenties: MutableList<String> = mutableListOf()
     private lateinit var nearByLandAdapter: NearByLandAdapter
     private lateinit var recyclerViewNearBy: RecyclerView
     private var listNearBy: MutableList<NearbyLandmark> = mutableListOf()
-    private lateinit var room: Room
     private lateinit var tvNumberDayNight: TextView
     private lateinit var btPriceRoom: Button
-    lateinit var firebaseAuth: FirebaseAuth
-    lateinit var databaseReferenceBook: DatabaseReference
-    lateinit var userRepository: UserRepository
     lateinit var tvBookNow: TextView
     private var latitude: Double? = null
     private var longtitude: Double? = null
 
-    companion object {
-        const val LOCATION_PERMISSION_REQUEST_CODE = 1000
-    }
+    private lateinit var detailRoomViewModel: DetailRoomViewModel
 
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
         setContentView(R.layout.activity_detail_room)
-        mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        room = Room()
-        databaseReference = FirebaseDatabase.getInstance().getReference("rooms")
-        firebaseAuth = FirebaseAuth.getInstance()
-        userRepository =
-            UserRepositoryImpl(FirebaseDatabase.getInstance().getReference("users"), firebaseAuth)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        initView()
+        initEvent()
         intent.extras?.let {
             idRoom = it.getString(ItemsListAdapter.BUNDLE_ID_ROOM)
         }
-        CoroutineScope(Dispatchers.Main).launch {
-            val roomRepository = RoomRepositoryImpl(databaseReference)
-            idRoom?.let {
-                roomRepository.getDetailRoom(
-                    id = it,
-                    onDataLoaded = {
-                        room = it
-                        Log.d("MINHMOM", room.name.toString())
-                        initData()
-                        mapFragment.getMapAsync(this@DetailRoomActivity)
-                    },
-                    onException = {
-                        Log.d("firebase", "on data load $it")
-                    })
-            }
+        idRoom?.let { detailRoomViewModel.getRoom(it) }
+        observerData()
 
-        }
-        initView()
-        initEvent()
     }
 
-    private fun initData() {
+    private fun observerData() {
+        detailRoomViewModel.room.observe(this, Observer {
+            initData(it)
+            title = it.name.toString()
+            mapFragment.getMapAsync(this@DetailRoomActivity)
+        })
+        detailRoomViewModel.exception.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        })
+        detailRoomViewModel.isAddRentSuccess.observe(this, Observer {
+            finish()
+            Toast.makeText(this, "BookRoom SuccessFull, Thanks", Toast.LENGTH_LONG)
+                .show()
+        })
+    }
+
+    private fun initData(room: Room) {
         latitude = room.address?.latitude
         longtitude = room.address?.longtitude
         tvNameRoomDetail.setText(room.name.toString())
@@ -180,6 +155,12 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         nearByLandAdapter = NearByLandAdapter(this)
         recyclerViewNearBy.adapter = nearByLandAdapter
 
+        //map
+        mapFragment = (supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?)!!
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        detailRoomViewModel = ViewModelProviders.of(this).get(DetailRoomViewModel::class.java)
     }
 
     @SuppressLint("SetTextI18n")
@@ -193,7 +174,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
                         toolbarTitle.visibility = View.VISIBLE
                         toolbar.setBackgroundColor(getColor(R.color.color_text_white))
                         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__dark)
-                        toolbarTitle.setText(room.name.toString())
+                        toolbarTitle.setText(title)
                         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                         window.setStatusBarColor(
                             ContextCompat.getColor(
@@ -220,22 +201,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         val dataCheckOut = CacheManager.cacheManager!!.getCheckOutDate()
         val rent = Rent(dataCheckIn, dataCheckOut, totalGuest)
         tvBookNow.setOnClickListener {
-
-            userRepository.addRent(
-                userKey!!,
-                idRoom!!,
-                rent,
-                onAddResponse = { isComplete, message ->
-                    if (isComplete) {
-                        finish()
-                        Toast.makeText(this, "BookRoom SuccessFull, Thanks", Toast.LENGTH_LONG)
-                            .show()
-                        Log.d("errow", message)
-                    } else {
-                        Toast.makeText(this, "Book Room not SuccessFull", Toast.LENGTH_LONG).show()
-                    }
-
-                })
+            detailRoomViewModel.addRent(userKey!!, idRoom!!, rent)
         }
 
     }
@@ -249,7 +215,6 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.heart -> {
-
                 //Toast.makeText(this@DetailRoomActivity, "Yêu thích", Toast.LENGTH_SHORT).show()
                 Log.d("hihi", "HIHI")
                 return true
@@ -271,7 +236,7 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isRotateGesturesEnabled = true
         mMap.uiSettings.isCompassEnabled = true
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        checkPermisstion()
+        checkPermission()
     }
 
     private fun getDeviceLocation() {
@@ -282,14 +247,12 @@ class DetailRoomActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     @SuppressLint("ObsoleteSdkInt")
-    private fun checkPermisstion() {
-        //version hien tai cua may
+    private fun checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val isAccept = ActivityCompat.checkSelfPermission(
                 this.applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
-            //check xem thu permision da dc chap nhan chua
             if (isAccept == PackageManager.PERMISSION_DENIED) {
                 requestPermissions(
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
