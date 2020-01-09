@@ -3,9 +3,9 @@ package vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +22,7 @@ import vnjp.monstarlaplifetime.apartmentssearch.screen.filter.FilterActivity
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.DateRangPickerBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.guests.GuestsFragmentBottomSheet
 import vnjp.monstarlaplifetime.apartmentssearch.screen.map.MapsActivity
+import vnjp.monstarlaplifetime.apartmentssearch.utils.app.CacheManager
 
 
 class ItemsListActivity : AppCompatActivity() {
@@ -42,22 +43,18 @@ class ItemsListActivity : AppCompatActivity() {
         databaseReference = FirebaseDatabase.getInstance().getReference("rooms")
         startPrice = intent.getFloatExtra(FilterActivity.START_PRICE, 0f)
         endPrice = intent.getFloatExtra(FilterActivity.END_PRICE, 0f)
-
         initView()
         initEvent()
     }
-
     companion object {
         const val LATITUDE = "LATITUDE"
         const val LONG_TITUDE = "LONG_TITUDE"
     }
-
     override fun onStart() {
         super.onStart()
         itemsListAdapter.startListening()
         EventBus.getDefault().register(this)
     }
-
     private fun initView() {
         val query: Query = if (startPrice == endPrice) {
             databaseReference.limitToLast(50)
@@ -67,22 +64,16 @@ class ItemsListActivity : AppCompatActivity() {
                 .endAt(endPrice.toDouble())
                 .limitToLast(50)
         }
-
         val firebaseRecyclerOptions: FirebaseRecyclerOptions<Room> =
             FirebaseRecyclerOptions.Builder<Room>().setQuery(query, Room::class.java).build()
-
         query.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-
             }
-
             override fun onDataChange(p0: DataSnapshot) {
                 val size = p0.childrenCount
                 val number = "<b>${size}</b> rooms "
                 tvNumberRoom.text = Html.fromHtml(number, Html.FROM_HTML_MODE_LEGACY)
-
             }
-
         })
         recyclerView = findViewById(R.id.rvListItems)
         buttonOpenMap = findViewById(R.id.imbFeather)
@@ -94,21 +85,22 @@ class ItemsListActivity : AppCompatActivity() {
         recyclerView.adapter = itemsListAdapter
         itemsListAdapter.onClick = { post, selectedKey ->
             id = selectedKey
-            Log.d("Haha", "${id}")
-            val intent = Intent(this, DetailRoomActivity::class.java)
-            intent.putExtra(ItemsListAdapter.BUNDLE_ID_ROOM, id)
-            startActivity(intent)
+            val day = CacheManager.cacheManager?.getAccountDay()
+            val numberPeople = CacheManager.cacheManager?.getNumberPeople()
+            if (day!!.isEmpty() && numberPeople!!.isEmpty()) {
+                Toast.makeText(this, "Please Choose People !!! ", Toast.LENGTH_LONG).show()
+            } else {
+                val intent = Intent(this, DetailRoomActivity::class.java)
+                intent.putExtra(ItemsListAdapter.BUNDLE_ID_ROOM, id)
+                startActivity(intent)
+            }
         }
-
-        //Log.d("HIHI",  itemsListAdapter.getSize().toString())
     }
-
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     fun onEvent(sDay: String) {
         btCalendar.text = sDay
 
     }
-
     private fun initEvent() {
         btGuest.setOnClickListener {
             val bottomSheetFragment =
@@ -129,14 +121,13 @@ class ItemsListActivity : AppCompatActivity() {
             startActivity(Intent(this, MapsActivity::class.java))
         }
         btCalendar.setOnClickListener {
+            btCalendar.isEnabled = true
             val bottomSheetFragment =
                 DateRangPickerBottomSheet()
             bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
         }
 
-
     }
-
     override fun onStop() {
         super.onStop()
         itemsListAdapter.stopListening()

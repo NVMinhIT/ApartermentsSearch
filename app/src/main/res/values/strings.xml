@@ -80,5 +80,7 @@
     <string name="dollar">$</string>
     <string name="abc">abc</string>
     <string name="_0">0</string>
+    <string name="name_room">Cozy Victorian Apartment in Islington</string>
+    <string name="_196">$196</string>
 
 </resources>

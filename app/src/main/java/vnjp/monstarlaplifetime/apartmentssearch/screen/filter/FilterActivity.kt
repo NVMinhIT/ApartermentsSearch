@@ -51,8 +51,6 @@ class FilterActivity : AppCompatActivity(), View.OnClickListener {
             textPriceRangeDetail.text = "$$minValue - $$maxValue"
         }
         textClear.setOnClickListener(this)
-
-
     }
 
     private fun setupRangeBar() {

@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import vnjp.monstarlaplifetime.apartmentssearch.R
-import vnjp.monstarlaplifetime.apartmentssearch.data.model.Type
+import vnjp.monstarlaplifetime.apartmentssearch.utils.Type
 
 class AmenitiesAdapter(private val context: Context) :
     RecyclerView.Adapter<AmenitiesAdapter.MyViewHolder>() {

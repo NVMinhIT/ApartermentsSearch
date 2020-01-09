@@ -1,9 +1,10 @@
-package vnjp.monstarlaplifetime.apartmentssearch.data.model
+package vnjp.monstarlaplifetime.apartmentssearch.utils
 
-import android.util.Log
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
 import vnjp.monstarlaplifetime.apartmentssearch.R
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Address
+import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
 import java.text.DecimalFormat
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -16,34 +17,35 @@ import kotlin.math.sqrt
 
 class Util {
     companion object {
-        fun getStatisticRooms() = Room(
-            Address(
-                "28 Great Sutton St, Clerkenwell, London, EC1V 0DS",
-                21.0124,
-                105.8992
-            ),
-            listOf(
-                "TV",
-                "Washer",
-                "Coffee maker",
-                "TV",
-                "Washer",
-                "Wifi"
-            ),
-            "This reservation is non-refundable because check-in is less than 7 days away.",
-            hashMapOf(),
-            "Slumber on a plush Eve memory foam mattress\u200B in the courtyard-facing bedroom of this characterful modernised period apartment. There's classy wooden flooring throughout while the traditional fireplace lends a cosy focal point to the living room.",
-            1,
-            "https://images.oyoroomscdn.com/uploads/hotel_image/81612/large/f0af88ee7aca453a.jpg",
-            "Cozy Victorian Apartment in Islington",
-            null,
-            120f,
-            arrayListOf(
-                "No pets",
-                "No smoking, parties, or events",
-                "Check-in is anytime after 3PM and check out by 11AM"
+        fun getStatisticRooms() =
+            Room(
+                Address(
+                    "28 Great Sutton St, Clerkenwell, London, EC1V 0DS",
+                    21.0124,
+                    105.8992
+                ),
+                listOf(
+                    "TV",
+                    "Washer",
+                    "Coffee maker",
+                    "TV",
+                    "Washer",
+                    "Wifi"
+                ),
+                "This reservation is non-refundable because check-in is less than 7 days away.",
+                hashMapOf(),
+                "Slumber on a plush Eve memory foam mattress\u200B in the courtyard-facing bedroom of this characterful modernised period apartment. There's classy wooden flooring throughout while the traditional fireplace lends a cosy focal point to the living room.",
+                1,
+                "https://images.oyoroomscdn.com/uploads/hotel_image/81612/large/f0af88ee7aca453a.jpg",
+                "Cozy Victorian Apartment in Islington",
+                null,
+                120f,
+                arrayListOf(
+                    "No pets",
+                    "No smoking, parties, or events",
+                    "Check-in is anytime after 3PM and check out by 11AM"
+                )
             )
-        )
 
         fun calculationByDistance(StartP: LatLng, EndP: LatLng): Double {
             val radius = 6371 // radius of earth in Km
