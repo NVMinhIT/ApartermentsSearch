@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -28,11 +30,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_maps.*
 import vnjp.monstarlaplifetime.apartmentssearch.R
 import vnjp.monstarlaplifetime.apartmentssearch.data.model.Room
-import vnjp.monstarlaplifetime.apartmentssearch.data.repository.RoomRepositoryImpl
 import vnjp.monstarlaplifetime.apartmentssearch.screen.detailroom.DetailRoomActivity
 import vnjp.monstarlaplifetime.apartmentssearch.screen.itemslist.ItemsListAdapter
 
@@ -44,11 +44,7 @@ class MapsActivity : AppCompatActivity(),
     private var location: Location? = null
     private var currentMarker: Marker? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-
-    // repo
-    private val roomDatabaseReference = FirebaseDatabase.getInstance().getReference("rooms")
-    private val roomRepository = RoomRepositoryImpl(roomDatabaseReference)
-
+    private lateinit var mapViewModel: MapViewModel
     lateinit var buttonClose: ImageButton
     lateinit var cardRoomReview: ConstraintLayout
 
@@ -80,6 +76,7 @@ class MapsActivity : AppCompatActivity(),
     }
 
     private fun init() {
+        mapViewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
         buttonClose = findViewById(R.id.buttonClose)
         cardRoomReview = findViewById(R.id.reviewContainer)
         cardRoomReview.visibility = View.INVISIBLE
@@ -129,7 +126,8 @@ class MapsActivity : AppCompatActivity(),
                     MarkerOptions()
                         .position(current)
                 ).tag = "you"
-                roomRepository.getRoomInRange(current, 10.toDouble(), onDataLoaded = { rooms ->
+                mapViewModel.getRoomInRange(current, (0..10).random().toDouble())
+                mapViewModel.rooms.observe(this, Observer { rooms ->
                     for ((key, room) in rooms) {
                         val mark = LatLng(
                             room.address?.latitude!!,
@@ -153,14 +151,14 @@ class MapsActivity : AppCompatActivity(),
                     val cu = CameraUpdateFactory.newLatLngBounds(bounds, 200)
                     mMap.moveCamera(cu)
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(17f), 2000, null)
-                }, onException = { message -> Log.d("location", message) })
+                })
             }
         }
 
         mMap.setOnMarkerClickListener { marker ->
             val roomKey: String = marker.tag as String
             if (roomKey != "you") {
-                roomRepository.getDetailRoom(roomKey, onException = {}, onDataLoaded = { room ->
+                mapViewModel.room.observe(this, Observer { room ->
                     if (currentMarker == null) {
                         currentMarker = marker
                     } else {
@@ -224,5 +222,4 @@ class MapsActivity : AppCompatActivity(),
             startActivity(intent)
         }
     }
-
 }
