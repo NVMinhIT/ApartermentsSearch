@@ -158,6 +158,7 @@ class MapsActivity : AppCompatActivity(),
         mMap.setOnMarkerClickListener { marker ->
             val roomKey: String = marker.tag as String
             if (roomKey != "you") {
+                mapViewModel.getRoom(roomKey)
                 mapViewModel.room.observe(this, Observer { room ->
                     if (currentMarker == null) {
                         currentMarker = marker
